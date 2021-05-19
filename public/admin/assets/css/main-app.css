@@ -57,4 +57,15 @@
   color: #636361;
 }
 
+.anime:hover .left-arrow {
+  -webkit-animation: wobble 1s;
+  animation: wobble 1s;
+}
+
+@media (min-width: 768px) {
+  .content-header .icon, .content-header .divider, .content-header .page-title {
+    font-size: 1.5rem;
+  }
+}
+
 /*# sourceMappingURL=main-app.css.map */

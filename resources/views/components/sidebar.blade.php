@@ -1,7 +1,7 @@
 <nav id="sidebar" aria-label="Main Navigation">
     <!-- Side Header -->
-    <div class="bg-header-dark">
-        <div class="content-header my-3 bg-white d-flex justify-content-center align-items-center">
+    <div>
+        <div class="content-header my-3 d-flex justify-content-center align-items-center">
             <!-- Logo -->
             <a class="font-w600 text-white tracking-wide" href="">
                 <img src="{{asset('admin/assets/media/imgs/logo.png')}}" style="height:100px" alt="">
@@ -37,13 +37,13 @@
     <!-- Sidebar Scrolling -->
     <div class="js-sidebar-scroll">
 
-        <div class="user-info my-1">
+        <div class="user-info my-1 anime pointer">
             <div class="row align-items-center p-2">
                 <div class="col-3 pl-0">
                     <img class="rounded-circle user-image" src="{{asset('admin/assets/media/avatars/avatar0.jpg')}}" alt="">
                 </div>
                 <div class="col-7 pl-0" style="font-size: 14px">إسم المستخدم</div>
-                <div class="col-2"><i class="fas fa-chevron-left"></i></div>
+                <div class="col-2"><i class="fas fa-chevron-left left-arrow"></i></div>
             </div>
         </div>
 
@@ -85,40 +85,40 @@
 
                 <li class="nav-main-heading">{{ __('sidebar.admin_sections') }}</li>
 
-            {{--                @can('إدارة المشرفين')--}}
-            {{--                    <!-- Users -->--}}
-            {{--                    <li class="nav-main-item">--}}
-            {{--                        <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"--}}
-            {{--                            aria-expanded="false" href="#">--}}
-            {{--                            <i class="nav-main-link-icon fas fa-users-cog"></i>--}}
-            {{--                            <span class="nav-main-link-name">إدارة مشرفين</span>--}}
-            {{--                        </a>--}}
-            {{--                        <ul class="nav-main-submenu">--}}
-            {{--                            @can('مشاهدة المشرفين')--}}
-            {{--                                <li class="nav-main-item">--}}
-            {{--                                    <a class="nav-main-link" href="{{ route('mods.index') }}">--}}
-            {{--                                        <span class="nav-main-link-name">قائمة المشرفين</span>--}}
-            {{--                                    </a>--}}
-            {{--                                </li>--}}
-            {{--                            @endcan--}}
+                            @can('إدارة المشرفين')
+                                <!-- Users -->
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
+                                        aria-expanded="false" href="#">
+                                        <i class="nav-main-link-icon fas fa-users-cog"></i>
+                                        <span class="nav-main-link-name">إدارة مشرفين</span>
+                                    </a>
+                                    <ul class="nav-main-submenu">
+                                        @can('مشاهدة المشرفين')
+                                            <li class="nav-main-item">
+                                                <a class="nav-main-link" href="{{ route('mods.index') }}">
+                                                    <span class="nav-main-link-name">قائمة المشرفين</span>
+                                                </a>
+                                            </li>
+                                        @endcan
 
-            {{--                            @can('إضافة مشرف')--}}
-            {{--                                <li class="nav-main-item">--}}
-            {{--                                    <a class="nav-main-link" href="{{ route('mods.create') }}">--}}
-            {{--                                        <span class="nav-main-link-name">إضافة مشرف جديد</span>--}}
-            {{--                                    </a>--}}
-            {{--                                </li>--}}
-            {{--                            @endcan--}}
-            {{--                            @can('تعديل الصلاحيات')--}}
-            {{--                                <li class="nav-main-item">--}}
-            {{--                                    <a class="nav-main-link" href="{{ route('roles.index') }}">--}}
-            {{--                                        <span class="nav-main-link-name">التحكم بالأدوار والصلاحيات</span>--}}
-            {{--                                    </a>--}}
-            {{--                                </li>--}}
-            {{--                            @endcan--}}
-            {{--                        </ul>--}}
-            {{--                    </li>--}}
-            {{--                @endcan--}}
+                                        @can('إضافة مشرف')
+                                            <li class="nav-main-item">
+                                                <a class="nav-main-link" href="{{ route('mods.create') }}">
+                                                    <span class="nav-main-link-name">إضافة مشرف جديد</span>
+                                                </a>
+                                            </li>
+                                        @endcan
+                                        @can('تعديل الصلاحيات')
+                                            <li class="nav-main-item">
+                                                <a class="nav-main-link" href="{{ route('roles.index') }}">
+                                                    <span class="nav-main-link-name">التحكم بالأدوار والصلاحيات</span>
+                                                </a>
+                                            </li>
+                                        @endcan
+                                    </ul>
+                                </li>
+                            @endcan
 
             <!-- Reports -->
                 <li class="nav-main-item">
@@ -156,34 +156,34 @@
                     </ul>
                 </li>
 
-                {{--                <!-- Support -->--}}
-                {{--                <li class="nav-main-item">--}}
-                {{--                    <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"--}}
-                {{--                        aria-expanded="false" href="#">--}}
-                {{--                        <i class="nav-main-link-icon fas fa-headset"></i>--}}
-                {{--                        <span class="nav-main-link-name">{{ __('layouts/sidebar.help_support') }}</span>--}}
-                {{--                    </a>--}}
-                {{--                    <ul class="nav-main-submenu">--}}
-                {{--                        <li class="nav-main-item">--}}
-                {{--                            <a class="nav-main-link" href="javascript:void(0)">--}}
-                {{--                                <span class="nav-main-link-name">{{ __('layouts/sidebar.text_explanation') }}</span>--}}
-                {{--                            </a>--}}
-                {{--                        </li>--}}
+                                <!-- Support -->
+{{--                                <li class="nav-main-item">--}}
+{{--                                    <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"--}}
+{{--                                        aria-expanded="false" href="#">--}}
+{{--                                        <i class="nav-main-link-icon fas fa-headset"></i>--}}
+{{--                                        <span class="nav-main-link-name">{{ __('layouts/sidebar.help_support') }}</span>--}}
+{{--                                    </a>--}}
+{{--                                    <ul class="nav-main-submenu">--}}
+{{--                                        <li class="nav-main-item">--}}
+{{--                                            <a class="nav-main-link" href="javascript:void(0)">--}}
+{{--                                                <span class="nav-main-link-name">{{ __('layouts/sidebar.text_explanation') }}</span>--}}
+{{--                                            </a>--}}
+{{--                                        </li>--}}
 
-                {{--                        <li class="nav-main-item">--}}
-                {{--                            <a class="nav-main-link" href="javascript:void(0)">--}}
-                {{--                                <span--}}
-                {{--                                    class="nav-main-link-name">{{ __('layouts/sidebar.visual_explanation') }}</span>--}}
-                {{--                            </a>--}}
-                {{--                        </li>--}}
-                {{--                        <li class="nav-main-item">--}}
-                {{--                            <a class="nav-main-link" href="javascript:void(0)">--}}
-                {{--                                <span class="nav-main-link-name">{{ __('layouts/sidebar.contact_us') }}</span>--}}
-                {{--                            </a>--}}
-                {{--                        </li>--}}
+{{--                                        <li class="nav-main-item">--}}
+{{--                                            <a class="nav-main-link" href="javascript:void(0)">--}}
+{{--                                                <span--}}
+{{--                                                    class="nav-main-link-name">{{ __('layouts/sidebar.visual_explanation') }}</span>--}}
+{{--                                            </a>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="nav-main-item">--}}
+{{--                                            <a class="nav-main-link" href="javascript:void(0)">--}}
+{{--                                                <span class="nav-main-link-name">{{ __('layouts/sidebar.contact_us') }}</span>--}}
+{{--                                            </a>--}}
+{{--                                        </li>--}}
 
-                {{--                    </ul>--}}
-                {{--                </li>--}}
+{{--                                    </ul>--}}
+{{--                                </li>--}}
 
 
             </ul>

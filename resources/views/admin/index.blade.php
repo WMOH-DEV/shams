@@ -4,6 +4,10 @@
     الرئيسية
 @endsection
 
+@section('navbar')
+    <x-top-nav />
+@endsection
+
 @section('content')
     <!-- Hero -->
     <div class="content">
