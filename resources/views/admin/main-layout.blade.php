@@ -1,5 +1,5 @@
 @include('admin.layouts.header')
-<div id="page-container" class="sidebar-o enable-page-overlay sidebar-r side-scroll enable-cookies page-header-fixed rtl-support">
+<div id="page-container" class="sidebar-o enable-page-overlay sidebar-r side-scroll enable-cookies rtl-support">
 {{--@include('admin.layouts.aside')--}}
 @include('admin.layouts.sidebar')
     @yield('navbar')

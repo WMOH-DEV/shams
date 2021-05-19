@@ -14,9 +14,9 @@
         <div
             class="d-md-flex rtl justify-content-md-between align-items-md-center py-3 pt-md-3 pb-md-0 text-center text-md-left">
             <div>
-                <h1 class="h2 mb-1">
+                <h5 class="h5 mb-1">
                     {{ __('global.Dashboard') }}
-                </h1>
+                </h5>
 
             </div>
             <div class="mt-4 mt-md-0">
