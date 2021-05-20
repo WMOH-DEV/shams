@@ -7,7 +7,7 @@
                 <a class="font-w600" id="author" href="{{ __('global.author_link') }}" target="_blank">{{ __('global.author') }}</a>
             </div>
             <div class="col-sm-6 order-sm-1 text-center text-sm-right">
-                <a class="font-w600" href="#" target="_blank">{{ __('global.site') }}</a> &copy; <span data-toggle="year-copy"></span>
+                <a class="font-w600" href="{{$site_web ??  url('/') }}" target="_blank">{{$site_name}}</a> &copy; <span data-toggle="year-copy"></span>
             </div>
         </div>
     </div>

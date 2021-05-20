@@ -22,7 +22,7 @@
             <div class="mt-4 mt-md-0">
                 <p class="mb-0">
                     {{ __('global.welcome') }} <span>
-                        WAEL
+                        {{Auth::user()->name}}
                     </span>
                 </p>
             </div>
@@ -166,12 +166,12 @@
             <div class="col-md-3 d-flex flex-column">
                 <!-- Stats -->
                 <div class="block block-rounded text-center d-flex flex-column">
-                    <div class="block-content block-content-full flex-grow-1">
+                    <div class="block-content block-content-full flex-grow-1 p-2">
                         <div class="item rounded-lg bg-body-dark mx-auto my-3">
                             <i class="fa fa-users text-muted"></i>
                         </div>
-                        <div class="text-black font-size-h1 font-w700">5555555555</div>
-                        <div class="text-muted mb-3">عدد الطلبات</div>
+                        <div class="text-black font-size-h1 font-w700">32</div>
+                        <div class="text-muted mb-3">عدد التجار</div>
                     </div>
                     <div class="block-content block-content-full block-content-sm bg-body-light font-size-sm">
                         <a class="font-w500" href="#">
@@ -181,66 +181,36 @@
                     </div>
                 </div>
                 <div class="block block-rounded text-center d-flex flex-column">
-                    <div class="block-content block-content-full flex-grow-1">
+                    <div class="block-content block-content-full flex-grow-1 p-2">
                         <div class="item rounded-lg bg-body-dark mx-auto my-3">
                             <i class="fa fa-users text-muted"></i>
                         </div>
-                        <div class="text-black font-size-h1 font-w700">333333</div>
-                        <div class="text-muted mb-3">{{ __('global.registered_users') }}</div>
+                        <div class="text-black font-size-h1 font-w700">32</div>
+                        <div class="text-muted mb-3">عدد العملاء</div>
                     </div>
                     <div class="block-content block-content-full block-content-sm bg-body-light font-size-sm">
-                        <a class="font-w500" href="#clients">
-                            {{ __('global.view_all') }}
-                            <i class="fa fa-arrow-left mr-1 opacity-25"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="block block-rounded">
-                    <div
-                        class="block-content block-content-full d-flex justify-content-between align-items-center flex-grow-1">
-                        <div class="mr-3">
-                            <p class="font-size-h3 font-w700 mb-0">
-                                5222m
-                            </p>
-                            <p class="text-muted mb-0">
-                                عدد التجار
-                            </p>
-                        </div>
-                        <div class="item rounded-lg bg-body-dark">
-                            <i class="fa fa-check text-muted"></i>
-                        </div>
-                    </div>
-                    <div
-                        class="block-content block-content-full block-content-sm bg-body-light font-size-sm text-center">
-                        <a class="font-w500" href="#merchants">
-                            {{ __('global.view_all') }}
-                            <i class="fa fa-arrow-left mr-1 opacity-25"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="block block-rounded">
-                    <div
-                        class="block-content block-content-full d-flex justify-content-between align-items-center flex-grow-1">
-                        <div class="mr-3">
-                            <p class="font-size-h3 font-w700 mb-0">
-                                33333
-                            </p>
-                            <p class="text-muted mb-0">
-                                عدد التذاكر
-                            </p>
-                        </div>
-                        <div class="item rounded-lg bg-body-dark">
-                            <i class="fa fa-check text-muted"></i>
-                        </div>
-                    </div>
-                    <div
-                        class="block-content block-content-full block-content-sm bg-body-light font-size-sm text-center">
                         <a class="font-w500" href="#">
                             {{ __('global.view_all') }}
                             <i class="fa fa-arrow-left mr-1 opacity-25"></i>
                         </a>
                     </div>
                 </div>
+                <div class="block block-rounded text-center d-flex flex-column">
+                    <div class="block-content block-content-full flex-grow-1 p-2">
+                        <div class="item rounded-lg bg-body-dark mx-auto my-3">
+                            <i class="fa fa-users text-muted"></i>
+                        </div>
+                        <div class="text-black font-size-h1 font-w700">32</div>
+                        <div class="text-muted mb-3">عدد الطلبات</div>
+                    </div>
+                    <div class="block-content block-content-full block-content-sm bg-body-light font-size-sm">
+                        <a class="font-w500" href="#">
+                            {{ __('global.view_all') }}
+                            <i class="fa fa-arrow-left mr-1 opacity-25"></i>
+                        </a>
+                    </div>
+                </div>
+
                 <!-- END Stats -->
             </div>
         </div>

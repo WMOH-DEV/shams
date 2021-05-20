@@ -20,7 +20,6 @@ class CreateSettingsTable extends Migration
             $table->string('site_web')->nullable();
             $table->string('site_email')->nullable();
             $table->string('site_phone')->nullable();
-            $table->text('terms')->nullable();
             $table->integer('vat_rate')->default(15);
             $table->string('vat_id')->nullable();
             $table->string('facebook')->nullable()->default('facebook');

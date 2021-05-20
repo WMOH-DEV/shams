@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\admin\Setting;
 use Illuminate\View\Component;
 
 class Footer extends Component
@@ -23,6 +24,8 @@ class Footer extends Component
      */
     public function render()
     {
-        return view('components.footer');
+        $site_name = Setting::first()->site_name;
+        $site_web = Setting::first()->site_web;
+        return view('components.footer', compact('site_name','site_web'));
     }
 }
