@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->string('avatar')->nullable();
+            $table->boolean('certified')->default(0);
             $table->foreignId('city_id')->constrained()->cascadeOnDelete();
             $table->foreignId('role_id')->nullable()->default('1')->constrained()->nullOnDelete();
             $table->timestamp('email_verified_at')->nullable();

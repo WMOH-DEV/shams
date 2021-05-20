@@ -25,6 +25,7 @@ class CreatePricesTable extends Migration
             $table->string('image2')->nullable();
             $table->string('image3')->nullable();
             $table->string('image4')->nullable();
+            $table->boolean('isAccepted')->default(0);
             $table->integer('days');
             $table->integer('total_price');
             $table->timestamps();

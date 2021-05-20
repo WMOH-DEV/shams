@@ -17,6 +17,7 @@ class CreateCompaniesTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('image')->default('no-image.jpg');
+            $table->boolean('active')->default(0);
             $table->timestamps();
         });
     }

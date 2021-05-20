@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
         Role::create(['name' => 'تاجر',]);
         Role::create(['name' => 'أدمن',]);
 
-        City::factory()->count(30)->create();
+      //  City::factory()->count(30)->create();
+        $this->call(CitySeeder::class);
 
         $user = User::create([
             'name' => 'وائل محمد',
