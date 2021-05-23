@@ -11,5 +11,8 @@ class City extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

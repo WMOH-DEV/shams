@@ -16,12 +16,14 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    protected $appends = ['image_path'];
+
+    public function getImagePathAttribute(): string
+    {
+        return $this->avatar ? asset('uploads/' . $this->avatar) : asset('admin/assets/media/avatars/avatar0.jpg');
+    }
     /**
      * The attributes that should be hidden for arrays.
      *

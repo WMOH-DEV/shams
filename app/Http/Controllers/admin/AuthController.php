@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\admin\City;
 use App\Models\admin\User;
 use App\Repositories\AuthRepository;
 use Illuminate\Http\Request;
@@ -24,7 +25,8 @@ class AuthController extends Controller
     public function edit()
     {
         $user = User::findOrfail(Auth::user()->id);
-        return view('admin.profile.edit', compact('user'));
+         $cities = City::all();
+        return view('admin.profile.edit', compact('user', 'cities'));
     } // End edit
 
     public function update(Request $request)
@@ -34,6 +36,6 @@ class AuthController extends Controller
 
     public function changePassword(Request $request)
     {
-       return $this->authRepository->updatePassword($request);
+        return $this->authRepository->updatePassword($request);
     } // End changePassword
 }

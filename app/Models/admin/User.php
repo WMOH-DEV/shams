@@ -13,33 +13,16 @@ class User extends Authenticatable
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token',];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected $casts = ['email_verified_at' => 'datetime',];
+
+    // add property name in $appends array
+    protected $appends = ['image_path'];
 
     public function role()
     {
         return $this->belongsTo(Role::class);
-    }
-
-    public function tickets()
-    {
-        return $this->hasMany(Ticket::class);
     }
 
     public function orders(): HasMany
@@ -48,10 +31,21 @@ class User extends Authenticatable
     }
 
 
-    public function comments()
+    public function opinions()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Opinion::class);
 
-    } // End tickets
+    } // End Opnion
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    // Add a function to get the property value
+    public function getImagePathAttribute(): string
+    {
+        return asset('uploads/' . $this->avatar);
+    }
 
 }

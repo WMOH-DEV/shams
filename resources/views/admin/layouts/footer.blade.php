@@ -1,4 +1,5 @@
 <x-footer />
+@livewireScripts
 <!-- END Footer -->
 </div>
 @notifyJs
