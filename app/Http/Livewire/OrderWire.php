@@ -19,8 +19,8 @@ class OrderWire extends Component
     public $selectPage = false;
     public $selectAll = false;
     public $selectedUser = null;
-    public $selectedTicket = null;
-    public $select2User = '';
+   // public $selectedTicket = null;
+  //  public $select2User = '';
 
 
     public function updatingSearch()
@@ -57,7 +57,7 @@ class OrderWire extends Component
         $this->checked = [];
         $this->selectAll = false;
         $this->selectPage = false;
-        session()->flash('message', 'تم بنجاح حذف الطلب الذي تم تحديده');
+        session()->flash('error', 'تم بنجاح حذف الطلب الذي تم تحديده');
     }
 
     public function deleteSingleRecord($id)
@@ -65,7 +65,7 @@ class OrderWire extends Component
         // dd($id);
         Order::findOrFail($id)->delete();
         $this->checked = array_diff($this->checked, [$id]);
-        session()->flash('message', 'تم بنجاح حذف الطلب من قاعدة البيانات');
+        session()->flash('error', 'تم بنجاح حذف الطلب من قاعدة البيانات');
     }
 
     public function cancelSelectAll()
@@ -86,8 +86,6 @@ class OrderWire extends Component
         return Order::with(['user', 'ticket'])
             ->when($this->selectedUser, function ($query){
                 $query->where('user_id',$this->selectedUser);
-            })->when($this->selectedTicket, function ($query){
-                $query->where('ticket_id',$this->selectedTicket);
             })
             ->search(trim($this->search))
             ->latest('id');
@@ -105,12 +103,10 @@ class OrderWire extends Component
 
     public function render()
     {
-        $tickets = \App\Models\admin\Ticket::has('order')->get();
         $users = User::whereHas('orders', function($q){
             $q->where('role_id','1');
         })->get();
         return view('livewire.order-wire', ['orders' => $this->orders,
-            'tickets' => $tickets,
             'users' => $users
             ]);
     }

@@ -27,11 +27,9 @@ class Order extends Model
     {
         $term = "%$term%";
         $query->where(function ($query) use ($term) {
-            $query->where('order_number', 'like', $term)
+            $query->where('id', 'like', $term)
 //                ->orWhere('id', 'like', $term)
-                ->orWhereHas('ticket', function ($q) use ($term) {
-                    $q->where('name', 'like', $term);
-                })->orWhereHas('user', function ($q) use ($term) {
+                ->orWhereHas('user', function ($q) use ($term) {
                     $q->where('name', 'like', $term);
                 });
         });

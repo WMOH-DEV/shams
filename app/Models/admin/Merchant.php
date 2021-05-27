@@ -17,6 +17,14 @@ class Merchant extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    // add property name in $appends array
+    protected $appends = ['image_path'];
+
+    // Add a function to get the property value
+    public function getImagePathAttribute(): string
+    {
+        return $this->avatar ? asset('uploads/' . $this->avatar) : asset('admin/assets/media/avatars/avatar0.jpg');
+    }
 
     protected $hidden = [
         'password',

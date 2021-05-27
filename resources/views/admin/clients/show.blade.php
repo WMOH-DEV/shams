@@ -2,13 +2,27 @@
 
 @section('title')مشاهدة العضو@endsection
 
+@section('navbar')
+    <x-top-nav>
+        <x-slot name="icon">
+            <i class="fa fa-user"></i>
+        </x-slot>
+        <x-slot name="title">
+            مشاهدة الملف الشخصي
+        </x-slot>
+    </x-top-nav>
+@endsection
 
 @section('content')
 
     <div class="content">
         <div class="block block-rounded">
             <div class="block-header block-header-default">
-                <h3 class="block-title"> مشاهدة الملف الشخصي {{ $client->name }} </h3>
+                <h5 class="h6 mb-1">
+                    <a href="{{route('admincp.index')}}">{{ __('global.main') }}</a><i
+                        class="fas fa-angle-left px-2"></i><a href="{{route('clients.index')}}">قائمة الأعضاء</a><i
+                        class="fas fa-angle-left px-2"></i><span>  مشاهدة الملف الشخصي {{$client->name}}</span>
+                </h5>
                 <div class="block-options">
                     <button type="button" class="btn btn-sm btn-alt-primary" data-toggle="block-option"
                             data-action="fullscreen_toggle"><i class="si si-size-fullscreen"></i></button>
@@ -77,9 +91,21 @@
                                     </label>
                                 </th>
                                 <td class="font-w600">
-                                    {{$client->phone}}
+                                   <span class="number_ltr"> {{$client->phone}}</span>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <th scope="row" style="width: 20%">
+                                    <label for="city">
+                                        المدينة
+                                    </label>
+                                </th>
+                                <td class="font-w600">
+                                    {{$client->city->name}}
+                                </td>
+                            </tr>
+
                             </tbody>
                         </table>
                     </div>

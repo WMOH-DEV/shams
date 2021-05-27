@@ -2,12 +2,27 @@
 
 @section('title')إضافة عضو@endsection
 
+@section('navbar')
+    <x-top-nav>
+        <x-slot name="icon">
+            <i class="fa fa-user"></i>
+        </x-slot>
+        <x-slot name="title">
+            عضو جديد
+        </x-slot>
+    </x-top-nav>
+@endsection
+
 @section('content')
 
     <div class="content">
         <div class="block block-rounded">
             <div class="block-header block-header-default">
-                <h3 class="block-title"> إضافة عضو جديد </h3>
+                <h5 class="h6 mb-1">
+                    <a href="{{route('admincp.index')}}">{{ __('global.main') }}</a><i
+                        class="fas fa-angle-left px-2"></i><a href="{{route('clients.index')}}">قائمة الأعضاء</a><i
+                        class="fas fa-angle-left px-2"></i><span>إضافة عضو جديد</span>
+                </h5>
                 <div class="block-options">
                     <button type="button" class="btn btn-sm btn-alt-primary" data-toggle="block-option"
                             data-action="fullscreen_toggle"><i class="si si-size-fullscreen"></i></button>
@@ -112,10 +127,29 @@
                                         </label>
                                     </th>
                                     <td class="font-w600">
-                                        <input class="form-control  unset"
+                                        <input class="form-control unset number_ltr"
                                                name="phone" type="text"
                                                value="{{old('phone')}}"
                                                id="phone" placeholder="رقم الجوال">
+                                    </td>
+                                </tr>
+
+                                <!-- client city -->
+                                <tr style="font-size: 0.9rem">
+                                    <th scope="row">
+                                        <label for="city_id">
+                                            المدينة
+                                        </label>
+                                    </th>
+                                    <td class="font-w600">
+                                        <select name="city_id" id="city_id"
+                                                class="js-select2 form-control @error('city_id') is-invalid @enderror js-select2-enabled">
+                                            <option></option>
+                                            @foreach ($cities as $city)
+                                                <option value="{{ $city->id }}">{{ $city->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </td>
                                 </tr>
 
@@ -131,4 +165,37 @@
 
 @endsection
 
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('admin/assets') }}/js/plugins/select2/css/select2.min.css">
+@endsection
+
+
+@section('js')
+
+
+    <!-- Page JS Code -->
+
+    <script src="{{asset('admin/assets')}}/js/plugins/select2/js/select2.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/ar.min.js"></script>
+
+
+    <script>
+
+
+        jQuery(() => {
+
+            $(".js-select2").select2({
+                dir: "rtl",
+                width: "100%",
+                placeholder: "اختر المدينة"
+
+            });
+
+
+        })
+
+    </script>
+
+@endsection
 

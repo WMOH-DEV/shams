@@ -16,6 +16,7 @@ class Merchant extends Component
     public $checked = [];
     public $selectPage = false;
     public $selectAll = false;
+    public $selectedStatus;
 
 
     public function updatingSearch()
@@ -78,23 +79,36 @@ class Merchant extends Component
 
     public function getMerchantsQueryProperty()
     {
+        if ($this->selectedStatus == null) {
+            $term = "%$this->search%";
+            return \App\Models\admin\Merchant::where('role_id', '2')
+                ->with('city')
+                ->where(function ($query) use  ($term) {
+                    $query->where('name', 'like', $term)
+                        ->OrWhere('email', 'like', $term)
+                        ->OrWhere('phone', 'like', $term)
+                        ->orWhereHas('city', function ($q) use ($term) {
+                            $q->where('name', 'like', $term);
+                        });
+                })->latest('id');
+        }
         $term = "%$this->search%";
-        return \App\Models\admin\Merchant::where('role_id', '2')
+        return \App\Models\admin\Merchant::with('city')
+            ->where('role_id', '2')
             ->where(function ($query) use  ($term) {
                 $query->where('name', 'like', $term)
                     ->OrWhere('email', 'like', $term)
                     ->OrWhere('phone', 'like', $term)
                     ->orWhereHas('city', function ($q) use ($term) {
-                        $q->where('name', 'like', $term);
-                    });
-            })->latest('id');
+                        $q->where('name', 'like', $term);});
+            })->where('certified', $this->selectedStatus)
+            ->latest('id');
     }
 
     public function isChecked($id)
     {
         return in_array($id, $this->checked);
     }
-
 
     public function approveSelected()
     {
@@ -140,7 +154,6 @@ class Merchant extends Component
         }
 
     }
-
 
     public function render()
     {

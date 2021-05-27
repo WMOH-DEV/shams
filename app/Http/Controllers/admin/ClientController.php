@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\admin\City;
 use App\Models\admin\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +19,8 @@ class ClientController extends Controller
 
     public function create()
     {
-        return view('admin.clients.create');
+        $cities = City::all();
+        return view('admin.clients.create',compact('cities'));
     } // end create
 
 
@@ -28,7 +30,8 @@ class ClientController extends Controller
             'name'      => 'required',
             'email'     => 'required|email|unique:users,email',
             'password'  => 'required|same:confirm-password|min:8',
-            'phone'     => 'required'
+            'phone'     => 'required',
+            'city_id'   => 'required','exists:cities,id'
         ]);
 
         $input = $request->all();
@@ -43,7 +46,7 @@ class ClientController extends Controller
 
     public function show($id)
     {
-        $client = User::findOrFail($id);
+        $client = User::with('city')->findOrFail($id);
         return view('admin.clients.show', ['client' => $client]);
     }
 
@@ -51,16 +54,18 @@ class ClientController extends Controller
     public function edit($id)
     {
         $client = User::findOrFail($id);
-        return view('admin.clients.edit', ['client' => $client]);
+        $cities = City::all();
+        return view('admin.clients.edit', ['client' => $client, 'cities' => $cities]);
     }
 
 
     public function update(Request $request, User $client)
     {
         $data = $request->validate([
-            'name'  => ['required'],
-            'phone' => ['required'],
-            'email' => ['required','email',"unique:users,email,$client->id"],
+            'name'      => ['required'],
+            'phone'     => ['required'],
+            'email'     => ['required','email',"unique:users,email,$client->id"],
+            'city_id'   => ['required','exists:cities,id']
         ]);
         $client->update($data);
         $client->save();

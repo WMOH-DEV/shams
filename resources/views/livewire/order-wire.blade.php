@@ -52,22 +52,6 @@
                         </label>
                     </div>
                     <div class="col-sm-12 col-md-3 px-0 row justify-between align-items-center">
-                        <div class="col-3 pr-0"> النشاط:</div>
-                        <div class="col-9 px-0">
-                            <label style="width: 100%">
-                                <select name="DataTables_Table_2_length"
-                                        aria-controls="DataTables_Table_2"
-                                        class="form-control rtl-select-arrow pr-2 ar-font"
-                                        wire:model="selectedTicket">
-                                    <option value="{{null}}">الكل</option>
-                                    @foreach($tickets as $ticket)
-                                        <option value="{{$ticket->id}}">{{$ticket->name}}</option>
-                                    @endforeach
-                                </select>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-3 px-0 row justify-between align-items-center">
                         <div class="col-3 pr-0"> بواسطة:</div>
                         <div class="col-9 pl-0" >
                             <label style="width: 100%">
@@ -143,11 +127,9 @@
                         </th>
 
                         <th class="text-center">كود الطلب</th>
+                        <th class="text-center">عنوان الطلب</th>
                         <th class="text-center">صاحب الطلب</th>
-                        <th class="text-center">اسم النشاط</th>
-                        <th class="text-center">عدد</th>
                         <th class="text-center">المبلغ</th>
-                        <th class="text-center">طريقة الدفع</th>
                         <th class="text-center">حالة الطلب</th>
                         <th class="text-center">تاريخ الإضافة</th>
                         <th class="text-center" style="width: 100px;">الاجراءات</th>
@@ -168,18 +150,10 @@
                                     <label class="custom-control-label" for="{{$order->id}}"></label>
                                 </div>
                             </td>
-                            <td class="text-center">{{ $order->order_number }}</td>
+                            <td class="text-center">{{ $order->id }}</td>
+                            <td class="text-center">{{ $order->name }}</td>
                             <td class="text-center">{{ $order->user->name }}</td>
-                            <td class="text-center">{{ $order->ticket->name }}</td>
-                            <td class="text-center">{{ $order->qty }}</td>
                             <td class="text-center">{{ $order->total }}</td>
-                            <td class="text-center">
-                                @if ($order->payment_method == "الدفع عند الاستلام")
-                                    <span class="badge badge-pill badge-secondary">الدفع عند الاستلام</span>
-                                @else
-                                    <span class="badge badge-pill badge-info">أونلاين</span>
-                                @endif
-                            </td>
                             <td class="text-center">
                                 @if ($order->admin_status == "تم الدفع")
                                     <span class="badge badge-pill badge-primary">تم الدفع <i class="fa fa-fw fa-check"></i> </span>

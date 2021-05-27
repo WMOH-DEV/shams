@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\admin\City;
 use App\Models\admin\Merchant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -15,22 +16,24 @@ class MerchantController extends Controller
 
     public function show($id)
     {
-        $merchant = Merchant::findOrFail($id);
+        $merchant = Merchant::with('city')->findOrFail($id);
         return view('admin.merchants.show', ['merchant' => $merchant]);
     } // end show
 
     public function edit($id)
     {
         $merchant = Merchant::findOrFail($id);
-        return view('admin.merchants.edit', ['merchant' => $merchant]);
+        $cities = City::all();
+        return view('admin.merchants.edit', ['merchant' => $merchant , 'cities' => $cities]);
     } // end Edit
 
     public function update(Request $request, Merchant $merchant)
     {
         $data = $request->validate([
-            'name'  => ['required'],
-            'phone' => ['required'],
-            'email' => ['required','email',"unique:users,email,$merchant->id"],
+            'name'      => ['required'],
+            'phone'     => ['required'],
+            'email'     => ['bail', 'required','email',"unique:users,email,$merchant->id"],
+            'city_id'   => ['bail', 'required',"exists:cities,id"],
         ]);
         $merchant->update($data);
         $merchant->save();
@@ -41,7 +44,8 @@ class MerchantController extends Controller
 
     public function create()
     {
-        return view('admin.merchants.create');
+        $cities = City::all();
+        return view('admin.merchants.create', ['cities'=> $cities]);
     } // end create
 
 
@@ -51,7 +55,8 @@ class MerchantController extends Controller
             'name'      => 'required',
             'email'     => 'required|email|unique:users,email',
             'password'  => 'required|same:confirm-password|min:8',
-            'phone'     => 'required'
+            'phone'     => 'required',
+            'city_id'   => ['bail', 'required',"exists:cities,id"],
         ]);
 
         $input = $request->all();

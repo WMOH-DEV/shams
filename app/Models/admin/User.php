@@ -45,7 +45,7 @@ class User extends Authenticatable
     // Add a function to get the property value
     public function getImagePathAttribute(): string
     {
-        return asset('uploads/' . $this->avatar);
+        return $this->avatar ? asset('uploads/' . $this->avatar) : asset('admin/assets/media/avatars/avatar0.jpg');
     }
 
 }

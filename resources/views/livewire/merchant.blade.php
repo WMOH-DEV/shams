@@ -31,7 +31,9 @@
                 <span class="badge badge-pill badge-danger"><i class="fa fa-fw fa-times-circle"></i> تأكد من اتصالك بالانترنت</span>
 
             </div>
-            <div class="row">
+
+
+                        <div class="row">
                 <div class="col-sm-12 col-md-5">
                     <a href="{{route('merchants.create')}}" type="button" wire:offline.attr="disabled"
                        class="btn btn-outline-success mr-1 mb-3 btn-sm"
@@ -57,8 +59,8 @@
                     @endif
                 </div>
 
-                <div class="col-sm-12 col-md-7 d-flex justify-between">
-                    <div class="dataTables_filter col-7">
+                <div class="col-sm-12 col-md-7 row justify-between">
+                    <div class="dataTables_filter col-12 col-lg-5">
                         <label style="width: 100%">
                             <input type="search" class="form-control"
                                    placeholder="البحث ..."
@@ -67,10 +69,25 @@
                             >
                         </label>
                     </div>
+                    <div class="col-12 col-lg-4 px-0 pl-md-2 row justify-between align-items-center">
+                        <div class="col-4"> الحالة:</div>
+                        <div class="col-8 px-0 px-md-1">
+                            <label style="width: 100%">
+                                <select name="DataTables_Table_2_length"
+                                        aria-controls="DataTables_Table_2"
+                                        class="form-control rtl-select-arrow pr-2 ar-font"
+                                        wire:model="selectedStatus">
+                                    <option value="{{null}}">الكل</option>
+                                    <option value="1">معتمد</option>
+                                    <option value="0">غير معتمد</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
 
-                    <div class="dataTables_length col-5 row align-items-center justify-between">
+                    <div class="dataTables_length px-0 pr-md-2 col-12 col-lg-4 row align-items-center justify-between">
                         <div class="col-4"> العرض:</div>
-                        <div class="col-8">
+                        <div class="col-8 px-0">
                             <label style="width: 100%">
                                 <select name="DataTables_Table_2_length"
                                         aria-controls="DataTables_Table_2"
@@ -83,7 +100,6 @@
                             </label>
                         </div>
                     </div>
-
                 </div>
 
             </div>
@@ -130,7 +146,7 @@
 
                         </th>
 
-                        <th class="text-center">رقم ID</th>
+                        <th class="text-center">الصورة</th>
                         <th class="text-center">الإسم</th>
                         <th class="text-center">رقم الجوال</th>
                         <th class="text-center">المدينة</th>
@@ -141,7 +157,7 @@
                     </thead>
                     <tbody>
 
-                    @foreach($merchants as $merchant)
+                    @forelse($merchants as $merchant)
                         <tr style="font-size: 0.8rem">
                             <td class="text-center">
                                 <div class="custom-control custom-checkbox custom-control-primary d-inline-block">
@@ -154,7 +170,9 @@
                                     <label class="custom-control-label" for="{{$merchant->id}}"></label>
                                 </div>
                             </td>
-                            <td class="text-center">{{ $merchant->id }}</td>
+                            <td class="text-center">
+                                <img src="{{$merchant->image_path}}" alt="{{$merchant->name}}" style="height: 50px; margin: auto">
+                            </td>
                             <td class="text-center">{{ $merchant->name }}</td>
                             <td class="text-center">{{ $merchant->phone }}</td>
                             <td class="text-center">{{ $merchant->city->name }}</td>
@@ -197,7 +215,11 @@
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center">لا يوجد نتائج متاحة</td>
+                        </tr>
+                    @endforelse
 
                     </tbody>
                 </table>

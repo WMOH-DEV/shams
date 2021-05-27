@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\ClientController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\MerchantController;
 use App\Http\Controllers\admin\ModsController;
+use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\RoleController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,8 @@ Route::middleware(['auth', 'isAdmin'])->group(function (){
     Route::get('/', [DashboardController::class, 'HomeView'])->name('admincp.index');
     Route::resource('clients', ClientController::class);
     Route::resource('merchants', MerchantController::class);
+    Route::resource('orders', OrderController::class)->except('create', 'store');
+
 
 
 

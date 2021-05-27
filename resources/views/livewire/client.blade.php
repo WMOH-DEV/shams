@@ -123,7 +123,7 @@
                     </thead>
                     <tbody>
 
-                    @foreach($clients as $client)
+                    @forelse($clients as $client)
                         <tr style="font-size: 0.8rem">
                             <td class="text-center">
                                 <div class="custom-control custom-checkbox custom-control-primary d-inline-block">
@@ -162,7 +162,11 @@
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center">لا يوجد نتائج متاحة</td>
+                        </tr>
+                    @endforelse
 
                     </tbody>
                 </table>
