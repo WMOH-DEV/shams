@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->string('name');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->boolean('searchable')->default(1);
+            $table->unsignedBigInteger('accepted_price')->nullable();
             $table->string('company_car');
             $table->string('model');
             $table->string('year');

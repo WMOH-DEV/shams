@@ -1,6 +1,8 @@
 @extends('admin.main-layout')
 
-@section('title') قائمة الطلبات@endsection
+@section('title')
+    قائمة الطلبات
+@endsection
 
 @section('navbar')
     <x-top-nav>
@@ -13,7 +15,8 @@
     </x-top-nav>
 @endsection
 
-@section('content') <livewire:order-wire /> @endsection
+
+@section('content') @livewire('order-wire') @endsection
 
 @section('js')
     <!-- Page JS Helpers (Table Tools helpers) -->

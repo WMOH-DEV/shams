@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         Role::create(['name' => 'تاجر',]);
         Role::create(['name' => 'أدمن',]);
 
-      //  City::factory()->count(30)->create();
+        //  City::factory()->count(30)->create();
         $this->call(CitySeeder::class);
 
         $user = User::create([
@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
 
 
         User::factory()->count(100)->create();
-
+        $this->call(OrderSeeder::class);
         Setting::create([
             'site_name' => 'شمس',
         ]);

@@ -41,8 +41,8 @@
                     @endif
                 </div>
 
-                <div class="col-sm-12 col-md-10 row justify-between align-items-center pl-0">
-                    <div class="col-sm-12 col-md-3 px-0 row justify-between align-items-center">
+                <div class="col-sm-12 col-md-10 row justify-between justify-content-end align-items-center pl-0">
+                    <div class="col-sm-12 col-md-5 px-3 row justify-between align-items-center">
                         <label style="width: 100%">
                             <input type="search" class="form-control"
                                    placeholder="البحث برقم الطلب..."
@@ -51,9 +51,9 @@
                                    wire:model.debounce.500ms="search">
                         </label>
                     </div>
-                    <div class="col-sm-12 col-md-3 px-0 row justify-between align-items-center">
-                        <div class="col-3 pr-0"> بواسطة:</div>
-                        <div class="col-9 pl-0" >
+                    <div class="col-sm-12 col-md-4 px-3 row justify-between align-items-center">
+                        <div class="col-3"> بواسطة:</div>
+                        <div class="col-9 pl-0">
                             <label style="width: 100%">
                                 <select name="DataTables_Table_2_length"
                                         aria-controls="DataTables_Table_2"
@@ -67,8 +67,8 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-2 px-0 row justify-between align-items-center">
-                        <div class="col-4 pr-0"> العرض:</div>
+                    <div class="col-sm-12 col-md-3 px-3 row justify-between align-items-center">
+                        <div class="col-4"> العرض:</div>
                         <div class="col-8">
                             <label style="width: 100%">
                                 <select name="DataTables_Table_2_length"
@@ -126,12 +126,12 @@
 
                         </th>
 
-                        <th class="text-center">كود الطلب</th>
+                        <th class="text-center">رقم الـ ID</th>
                         <th class="text-center">عنوان الطلب</th>
                         <th class="text-center">صاحب الطلب</th>
-                        <th class="text-center">المبلغ</th>
-                        <th class="text-center">حالة الطلب</th>
-                        <th class="text-center">تاريخ الإضافة</th>
+                        <th class="text-center">نوع الطلب</th>
+                        <th class="text-center">التوصيل</th>
+                        <th class="text-center">تاريخ الطلب</th>
                         <th class="text-center" style="width: 100px;">الاجراءات</th>
                     </tr>
                     </thead>
@@ -153,12 +153,24 @@
                             <td class="text-center">{{ $order->id }}</td>
                             <td class="text-center">{{ $order->name }}</td>
                             <td class="text-center">{{ $order->user->name }}</td>
-                            <td class="text-center">{{ $order->total }}</td>
                             <td class="text-center">
-                                @if ($order->admin_status == "تم الدفع")
-                                    <span class="badge badge-pill badge-primary">تم الدفع <i class="fa fa-fw fa-check"></i> </span>
-                                @else
-                                    <span class="badge badge-pill badge-danger">لم يتم الدفع <i class="fa fa-fw fa-times-circle"></i> </span>
+                                @if ($order->state_piece == "من الوكالة")
+                                    <span class="badge badge-pill badge-primary p-1">من الوكالة</span>
+                                @elseif ($order->state_piece == "جديد")
+                                    <span class="badge badge-pill badge-info p-1">جديد</span>
+                                @elseif ($order->state_piece == "مستعملة")
+                                    <span class="badge badge-pill badge-warning p-1">مستعملة</span>
+                                @elseif ($order->state_piece == "بديل من شركات اخرى")
+                                    <span class="badge badge-pill badge-secondary p-1">بديل</span>
+                                @elseif ($order->state_piece == "كليهما")
+                                    <span class="badge badge-pill badge-danger p-1">كليهما</span>
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                @if ($order->delivery == "مستعجل")
+                                    <span class="badge badge-pill badge-primary p-1">مستعجل <i class="si si-plane"></i></span>
+                                @elseif ($order->delivery == "عادى")
+                                    <span class="badge badge-pill badge-secondary p-1">عادى <i class="si si-speedometer"></i></span>
                                 @endif
                             </td>
                             <td class="text-center">{{ $order->created_at->format('Y-m-d') }}</td>
@@ -167,19 +179,15 @@
                                 <div class="btn-group">
                                     <a href="{{route('orders.edit', $order->id)}}" type="button"
                                        class="btn btn-sm btn-primary js-tooltip-enabled btn-right"
-                                       data-toggle="tooltip" title="" data-original-title="Edit">
-                                        <i class="fa fa-pencil-alt"></i>
+                                       data-toggle="tooltip" title="العروض المقدمة" data-original-title="prices">
+                                        <i class="fa fa-search"></i>
                                     </a>
                                     <a href="{{route('orders.show', $order->id)}}" type="button"
                                        class="btn btn-sm btn-primary js-tooltip-enabled btn-mid"
                                        data-toggle="tooltip" title="" data-original-title="show">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <a href="{{route('orders.print', $order->id)}}" target="_blank" type="button"
-                                       class="btn btn-sm btn-primary js-tooltip-enabled btn-mid"
-                                       data-toggle="tooltip" title="" data-original-title="show">
-                                        <i class="fa fa-print"></i>
-                                    </a>
+
 
                                     <button type="button" class="btn btn-sm btn-primary js-tooltip-enabled btn-left"
                                             title="حذف" data-original-title="delete" data-toggle="modal"

@@ -83,7 +83,7 @@ class OrderWire extends Component
 
     public function getOrdersQueryProperty(): Builder
     {
-        return Order::with(['user', 'ticket'])
+        return Order::with(['user'])
             ->when($this->selectedUser, function ($query){
                 $query->where('user_id',$this->selectedUser);
             })
