@@ -18,35 +18,6 @@ class OrderController extends Controller
         return view('admin.orders.index');
     } // End index
 
-    public function viewOrder(Order $order)
-    {
-        $home = Setting::first();
-        $orderNumber = $order->order_number;
-        // $number = rand();
-        QrCode::size(150)->generate("$orderNumber", public_path("qrcodes/$order->order_number.svg"));
-        $order_date = $order->created_at;
-        $hijri = Hijri::Date('l ، j F ، Y',$order_date);
-        $data['hijri'] = $hijri;
-        $pt_date = $order->ticket->date_party;
-        $party_hijri = Hijri::Date('l ، j F ، Y', $pt_date);
-        $data['party_hijri'] = Hijri::Date('l ، j F ، Y', $pt_date);
-        $data['order']  = $order;
-        $data['home']   = $home;
-        $totalInArabic = Tafqeet::inArabic($order->total);
-        $data['totalInArabic'] = $totalInArabic;
-
-        Date::setLocale('ar');
-        $data['date'] = Date::parse($order->ticket->date_party)->format('l j F Y');
-        // return view('admin.orders.test', compact('order', 'home','hijri','totalInArabic','party_hijri'));
-
-        $price = floatval($order->ticket->price);
-        $price_without_vat = floatval($order->ticket->price_without_vat);
-        $data['vat'] = $price - $price_without_vat;
-
-        $pdf = PDF::loadView('admin.orders.ticket', $data);
-
-        return $pdf->stream($order->order_number.".pdf");
-    } // End view Order
 
     public function edit(Order $order)
     {
@@ -67,8 +38,25 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        return view('admin.orders.show', compact('order'));
+
+        $previous = $this->getPrevious($order);
+        $next = $this->getNext($order);
+        //dd($next);
+        return view('admin.orders.show', compact('order', 'previous', 'next'));
 
     }
+
+    public function getPrevious(Order $order)
+    {
+        return $order->id !== Order::first()->id ?
+           Order::where('id', '<', $order->id)->orderBy('id', 'DESC')->first() : null;
+    }
+
+    public function getNext(Order $order)
+    {
+        return $order->id !== Order::latest('id')->first()->id ?
+            Order::where('id', '>', $order->id)->orderBy('id', 'ASC')->first() : null;
+    }
+
 
 } // End Controller

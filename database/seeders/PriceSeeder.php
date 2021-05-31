@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\admin\Price;
 use Illuminate\Database\Seeder;
 
-class database/seeders/OrderSeeder extends Seeder
+class PriceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +14,7 @@ class database/seeders/OrderSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Price::factory()->count(100)->create();
+
     }
 }

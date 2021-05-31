@@ -2,7 +2,11 @@
     <x-message/>
     <div class="block block-rounded">
         <div class="block-header block-header-default">
-            <h3 class="block-title">  {{ __('global.list') }} {{ __('global.orders') }} </h3>
+            <h5 class="h6 mb-1">
+                <a href="{{route('admincp.index')}}">{{ __('global.main') }}</a>
+                <i class="fas fa-angle-left px-2"></i>
+                <span>الطلبات</span>
+            </h5>
             <div class="block-options">
                 <button type="button" class="btn btn-sm btn-alt-primary" data-toggle="block-option"
                         data-action="fullscreen_toggle"><i class="si si-size-fullscreen"></i></button>
@@ -56,8 +60,9 @@
                         <div class="col-9 pl-0">
                             <label style="width: 100%">
                                 <select name="DataTables_Table_2_length"
+                                        data-livewire="@this"
                                         aria-controls="DataTables_Table_2"
-                                        class="form-control rtl-select-arrow pr-2 ar-font"
+                                        class="form-control rtl-select-arrow pr-2 chosen-select ar-font"
                                         wire:model="selectedUser">
                                     <option value="{{null}}">غير محدد</option>
                                     @foreach($users as $user)
@@ -170,14 +175,15 @@
                                 @if ($order->delivery == "مستعجل")
                                     <span class="badge badge-pill badge-primary p-1">مستعجل <i class="si si-plane"></i></span>
                                 @elseif ($order->delivery == "عادى")
-                                    <span class="badge badge-pill badge-secondary p-1">عادى <i class="si si-speedometer"></i></span>
+                                    <span class="badge badge-pill badge-secondary p-1">عادى <i
+                                            class="si si-speedometer"></i></span>
                                 @endif
                             </td>
                             <td class="text-center">{{ $order->created_at->format('Y-m-d') }}</td>
                             <!-- Actions -->
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <a href="{{route('orders.edit', $order->id)}}" type="button"
+                                    <a href="{{route('quotations.show', $order->id)}}" type="button"
                                        class="btn btn-sm btn-primary js-tooltip-enabled btn-right"
                                        data-toggle="tooltip" title="العروض المقدمة" data-original-title="prices">
                                         <i class="fa fa-search"></i>
@@ -215,17 +221,23 @@
 
 @section('css')
     <link rel="stylesheet" href="{{asset('admin/assets')}}/js/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css" integrity="sha512-0nkKORjFgcyxv3HbE4rzFUlENUMNqic/EzDIeYCgsKa/nwqr2B91Vu/tNAu4Q0cBuG4Xe/D1f/freEci/7GDRA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
 
 @section('js')
 
     <script src="{{asset('admin/assets')}}/js/plugins/select2/js/select2.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/ar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script>
+
         $(".js-select2").select2({
             dir: "rtl",
             width: "100%",
         });
+
+
     </script>
 @endsection
 

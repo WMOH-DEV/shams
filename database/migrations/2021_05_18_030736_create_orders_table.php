@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->string('company_car');
             $table->string('model');
             $table->string('year');
+            $table->foreignId('city_id')->constrained()->cascadeOnDelete();
             $table->text('details')->nullable();
             $table->string('image')->default('no-image.jpg');
             $table->string('image2')->nullable();

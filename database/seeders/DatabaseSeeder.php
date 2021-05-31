@@ -47,6 +47,9 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->count(100)->create();
         $this->call(OrderSeeder::class);
+
+        $this->call(PriceSeeder::class);
+
         Setting::create([
             'site_name' => 'شمس',
         ]);

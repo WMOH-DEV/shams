@@ -18,6 +18,7 @@ class CreateOpinionsTable extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->text('desc')->nullable();
             $table->boolean('active')->default(0);
+            $table->integer('opinion')->nullable();
             $table->timestamps();
         });
     }

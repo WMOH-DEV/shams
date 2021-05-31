@@ -1,6 +1,6 @@
 @extends('admin.main-layout')
 
-@section('title')مشاهدة {{$order->order_number}}@endsection
+@section('title')مشاهدة عرض رقم {{$quotation->id}}@endsection
 
 @section('navbar')
     <x-top-nav>
@@ -8,7 +8,7 @@
             <i class="fas fa-clipboard-list"></i>
         </x-slot>
         <x-slot name="title">
-            مشاهدة طلب
+            مشاهدة عرض
         </x-slot>
     </x-top-nav>
 @endsection
@@ -19,9 +19,13 @@
         <h5 class="h6 mb-1">
             <a href="{{route('admincp.index')}}">{{ __('global.main') }}</a>
             <i class="fas fa-angle-left px-2"></i>
-            <span><a href="{{route('orders.index')}}"> الطلبات</a></span>
+            <a href="{{route('orders.index')}}">الطلبات</a>
             <i class="fas fa-angle-left px-2"></i>
-            <span>طلب رقم {{$order->id}}</span>
+            <a href="{{route('orders.show', $quotation->order->id)}}">طلب رقم {{$quotation->order->id}}</a>
+            <i class="fas fa-angle-left px-2"></i>
+            <a href="{{route('quotations.show', $quotation->order->id)}}">العروض المقدمة</a>
+            <i class="fas fa-angle-left px-2"></i>
+            <span>مشاهدة عرض رقم {{$quotation->id}}</span>
         </h5>
     </div>
 
@@ -32,66 +36,28 @@
             <ul class="nav nav-tabs nav-tabs-block justify-content-end align-items-center" data-toggle="tabs"
                 role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#order-details">بيانات الطلب</a>
+                    <a class="nav-link active" href="#quotation-details">بيانات العرض</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#customer-details">بيانات العميل</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('quotations.show', $order)}}"
-                       onclick="location.href='{{route('quotations.show', $order)}}'" type="button" class="nav-link">العروض
-                        المقدمة</a>
+                    <a class="nav-link" href="#customer-details">بيانات التاجر</a>
                 </li>
                 <li class="nav-item mr-auto">
                     <div class="block-options pl-2 pr-3">
-                        @if ($previous)
-                            <a onclick="location.href='{{ route("orders.show", $previous->id)}}'" type="button"
-                               class="btn-block-option">
-                                <i class="si si-arrow-right"></i>
-                                <span>الطلب السابق</span>
-                            </a>
-                        @endif
-
-                        @if ($previous AND $next)
-                                <span class="mx-1">|</span>
-                        @endif
-
-                        @if ($next)
-                            <a onclick="location.href='{{route("orders.show", $next->id)}}'" type="button"
-                               class="btn-block-option ">
-                                <span>الطلب التالي</span>
-                                <i class="si si-arrow-left"></i>
-                            </a>
-                        @endif
                     </div>
                 </li>
+
             </ul>
             <div class="block-content tab-content overflow-hidden">
-                <!-- Order Details -->
-                <div class="tab-pane fade fade-right show active" id="order-details" role="tabpanel">
-                    <div class="row">
-
-                        <ul class="inline-flex
-                         justify-content-between
-                          w-75 mx-auto
-                           my-5
-                           progress-start
-                           {{ $order->accepted_price ? 'progress-mid' : '' }}
-                            position-relative">
-                            <li class="progress-point-start">مرحلة تلقي العروض</li>
-                            <li class="progress-point-mid">مرحلة تجهيز الطلب</li>
-                            <li class="progress-point-end">مرحلة التسليم</li>
-                        </ul>
-                    </div>
-                    @if ($order->details)
+                <div class="tab-pane fade fade-right show active" id="quotation-details" role="tabpanel">
+                    @if ($quotation->piece_with_price)
                         <div class="block block-rounded">
                             <div class="block-header block-header-default">
-                                <h3 class="block-title">تفاصيل الطلب</h3>
+                                <h3 class="block-title">أسعار القطع مع السعر</h3>
                             </div>
                             <div class="block-content">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <p class="text-justify">{{$order->details}}</p>
+                                        <p class="text-justify">{{$quotation->piece_with_price}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -104,16 +70,16 @@
                                 <tbody>
                                 <tr style="font-size: 0.9rem">
                                     <th scope="row" style="width: 20%" class="bg-white">
-                                        رقم الطلب
+                                        المبلغ المطلوب
                                     </th>
                                     <td class="font-w500" style="width: 30%">
-                                        {{ $order->id }}
+                                        {{ $quotation->total_price }}
                                     </td>
                                     <th scope="row" style="width: 20%" class="bg-white">
-                                        عنوان الطلب
+                                        السعر كلي أم جزئي ؟
                                     </th>
                                     <td class="font-w500">
-                                        {{ $order->name }}
+                                        {{ $quotation->price }}
                                     </td>
                                 </tr>
                                 <tr style="font-size: 0.9rem">
@@ -121,60 +87,39 @@
                                         المدينة
                                     </th>
                                     <td class="font-w500" style="width: 30%">
-                                        {{$order->user->city->name}}
+                                        {{$quotation->city->name}}
                                     </td>
                                     <th scope="row" style="width: 20%" class="bg-white">
-                                        الشركة المطلوبة
+                                        مدة تجهيز الطلب
                                     </th>
                                     <td class="font-w500">
-                                        {{$order->company_car}}
+                                        {{$quotation->days == 0 ? 0 : $quotation->days . " يوم "}}
                                     </td>
                                 </tr>
 
-
                                 <tr style="font-size: 0.9rem">
-                                    <th scope="row" style="width: 20%" class="bg-white">
-                                        الموديل
+                                    <th colspan="2" scope="row" class="bg-white">
+                                        حالة القطعة <span
+                                            class="text-danger">(قطعة بديلة من شركة أخرى أو من الوكالة)</span>
                                     </th>
-                                    <td class="font-w500" style="width: 30%">
-                                        {{$order->model}}
-                                    </td>
-                                    <th scope="row" style="width: 20%" class="bg-white">
-                                        سنة الموديل
-                                    </th>
-                                    <td class="font-w500">
-                                        {{$order->year}}
+                                    <td colspan="2" class="font-w500">
+                                        {{$quotation->kind_product}}
                                     </td>
                                 </tr>
 
                                 <tr style="font-size: 0.9rem">
                                     <th scope="row" style="width: 20%" class="bg-white">
-                                        حالة القطعة
+                                        تاريخ تقديم العرض
                                     </th>
                                     <td class="font-w500" style="width: 30%">
-                                        {{$order->state_piece}}
-                                    </td>
-                                    <th scope="row" style="width: 20%" class="bg-white">
-                                        طريقة الإستلام
-                                    </th>
-                                    <td class="font-w500">
-                                        {{$order->receipt}}
-                                    </td>
-                                </tr>
-
-                                <tr style="font-size: 0.9rem">
-                                    <th scope="row" style="width: 20%" class="bg-white">
-                                        تاريخ الطلب
-                                    </th>
-                                    <td class="font-w500" style="width: 30%">
-                                        {{$order->created_at->format('Y-m-d')}}
+                                        {{$quotation->created_at->format('Y-m-d')}}
                                     </td>
 
                                     <th scope="row" style="width: 20%" class="bg-white">
-                                        التوصيل
+                                        حالة العرض
                                     </th>
                                     <td class="font-w500">
-                                        {{$order->delivery}}
+                                        {{$quotation->isAccepted ? "تم قبوله" : "لم يتم إعتماده"}}
                                     </td>
                                 </tr>
 
@@ -183,8 +128,6 @@
                             </table>
                         </div>
                     </div>
-
-
                 </div>
                 <!-- Customer Details -->
                 <div class="tab-pane fade fade-right" id="customer-details" role="tabpanel">
@@ -195,11 +138,11 @@
                                 <tbody>
                                 <tr style="font-size: 0.9rem">
                                     <th scope="row" style="width: 20%">
-                                        اسم العميل
+                                        اسم التاجر
                                     </th>
                                     <td class="font-w600">
-                                        <a href="{{route('clients.show', $order->user->id)}}">
-                                            {{ $order->user->name }}
+                                        <a href="{{route('merchants.show', $quotation->user_id)}}">
+                                            {{ $quotation->merchant->name }}
                                         </a>
                                     </td>
                                 </tr>
@@ -209,8 +152,8 @@
                                         البريد الإلكتروني
                                     </th>
                                     <td class="font-w600">
-                                        <a href="mailto:{{$order->user->email}}">
-                                            {{$order->user->email}}
+                                        <a href="mailto:{{$quotation->merchant->email}}">
+                                            {{$quotation->merchant->email}}
                                         </a>
                                     </td>
                                 </tr>
@@ -220,7 +163,7 @@
                                         الهاتف
                                     </th>
                                     <td class="font-w600">
-                                        {{$order->user->phone}}
+                                        {{$quotation->merchant->phone}}
                                     </td>
                                 </tr>
 
@@ -229,9 +172,11 @@
                                         المدينة
                                     </th>
                                     <td class="font-w600">
-                                        {{$order->user->city->name}}
+                                        {{$quotation->merchant->city->name}}
                                     </td>
                                 </tr>
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -239,7 +184,7 @@
                 </div>
 
                 <!-- Slider with multiple images and center mode -->
-                @if ($order->image2)
+                @if ($quotation->image2)
                     <div class="block">
                         <div class="block-header block-header-default">
                             <h3 class="block-title">
@@ -250,25 +195,25 @@
                              data-arrows="true" data-slides-to-show="3" data-center-mode="true" data-autoplay="true"
                              data-autoplay-speed="3000">
                             <div>
-                                <img class="img-fluid" style="height:250px" src="{{ asset("uploads/$order->image") }}"
-                                     alt="{{ $order->name }}">
+                                <img class="img-fluid" style="height:250px" src="{{ asset("uploads/$quotation->image") }}"
+                                     alt="{{ $quotation->name }}">
                             </div>
                             <div>
-                                <img class="img-fluid" style="height:250px" src="{{ asset("uploads/$order->image2") }}"
-                                     alt="{{ $order->name }}">
+                                <img class="img-fluid" style="height:250px" src="{{ asset("uploads/$quotation->image2") }}"
+                                     alt="{{ $quotation->name }}">
                             </div>
-                            @if ( $order->image3 )
+                            @if ( $quotation->image3 )
                                 <div>
                                     <img class="img-fluid" style="height:250px"
-                                         src="{{ asset("uploads/$order->image3") }}"
-                                         alt="{{ $order->name }}">
+                                         src="{{ asset("uploads/$quotation->image3") }}"
+                                         alt="{{ $quotation->name }}">
                                 </div>
                             @endif
-                            @if ($order->image4)
+                            @if ($quotation->image4)
                                 <div>
                                     <img class="img-fluid" style="height:250px"
-                                         src="{{ asset("uploads/$order->image4") }}"
-                                         alt="{{ $order->name }}">
+                                         src="{{ asset("uploads/$quotation->image4") }}"
+                                         alt="{{ $quotation->name }}">
                                 </div>
                             @endif
                         </div>
@@ -276,11 +221,16 @@
             @endif
             <!-- END Slider with multiple images and center mode -->
 
+
             </div>
         </div>
         <!-- END Block Tabs Animated Slide Right -->
     </div>
+
+
 @endsection
+
+
 
 
 @section('css')
