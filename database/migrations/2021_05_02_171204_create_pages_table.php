@@ -17,7 +17,10 @@ class CreatePagesTable extends Migration
             $table->id();
             $table->string('image');
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->nullable();
+            $table->enum('type', ['header', 'footer'])->default('footer');
+            $table->boolean('active')->default(0);
+            $table->integer('sort_order')->default(0);
             $table->text('desc');
             $table->longText('content');
             $table->timestamps();

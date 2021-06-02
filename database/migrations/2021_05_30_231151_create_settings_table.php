@@ -15,13 +15,12 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('site_logo')->default('settings/site_logo.png');
+            $table->string('site_logo')->nullable();
             $table->string('site_name')->nullable();
             $table->string('site_web')->nullable();
             $table->string('site_email')->nullable();
             $table->string('site_phone')->nullable();
             $table->string('footer_text')->nullable();
-            $table->integer('vat_rate')->default(15);
             $table->string('vat_id')->nullable();
             $table->string('facebook')->nullable()->default('facebook');
             $table->string('twitter')->nullable()->default('twitter');

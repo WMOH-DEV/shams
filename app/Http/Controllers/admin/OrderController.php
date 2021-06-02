@@ -41,7 +41,6 @@ class OrderController extends Controller
 
         $previous = $this->getPrevious($order);
         $next = $this->getNext($order);
-        //dd($next);
         return view('admin.orders.show', compact('order', 'previous', 'next'));
 
     }

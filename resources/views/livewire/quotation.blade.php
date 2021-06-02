@@ -167,7 +167,6 @@
                                 <!-- Actions -->
                                 <td class="text-center">
                                     <div class="btn-group">
-                                        {{-- TODO : edit order --}}
                                         <a href="{{route('quotations.show.one', $quotation->id)}}" type="button"
                                            class="btn btn-sm btn-primary js-tooltip-enabled btn-right"
                                            data-toggle="tooltip" title="" data-original-title="show">

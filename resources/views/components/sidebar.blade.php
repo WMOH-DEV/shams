@@ -4,15 +4,13 @@
         <div class="content-header my-3 d-flex justify-content-center align-items-center">
             <!-- Logo -->
             <a class="font-w600 text-white tracking-wide" href="">
-                <img src="{{asset('admin/assets/media/imgs/logo.png')}}" style="height:100px" alt="">
+                <img src="{{ $setting->image_path }}" style="height:100px" alt="{{$setting->site_name}}">
             </a>
             <!-- END Logo -->
 
             <!-- Options -->
             <div>
                 <!-- Toggle Sidebar Style -->
-                <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                <!-- Class Toggle, functionality initialized in Helpers.coreToggleClass() -->
                 <a class="js-class-toggle text-white-75" data-target="#sidebar-style-toggler"
                    data-class="fa-toggle-off fa-toggle-on"
                    onclick="Dashmix.layout('sidebar_style_toggle');Dashmix.layout('header_style_toggle');"
@@ -42,7 +40,8 @@
             <div class="user-info my-1 anime pointer">
                 <div class="row align-items-center p-2">
                     <div class="col-3 pl-0">
-                        <img class="rounded-circle user-image" src="{{ Auth::user()->image_path ?? asset('admin/assets/media/avatars/avatar0.jpg')}}"
+                        <img class="rounded-circle user-image"
+                             src="{{ Auth::user()->image_path ?? asset('admin/assets/media/avatars/avatar0.jpg')}}"
                              alt="">
                     </div>
                     <div class="col-7 pl-0" style="font-size: 14px">{{Auth::user()->name}}</div>
@@ -55,7 +54,8 @@
         <div class="content-side">
             <ul class="nav-main">
                 <li class="nav-main-item">
-                    <a class="nav-main-link {{ Route::currentRouteName() === 'admincp.index' ? 'active' : ''}}" href="/admincp">
+                    <a class="nav-main-link {{ Route::currentRouteName() === 'admincp.index' ? 'active' : ''}}"
+                       href="/admincp">
                         <i class="nav-main-link-icon fa fa-home"></i>
                         <span class="nav-main-link-name">{{ __('sidebar.main_page') }}</span>
                     </a>
@@ -64,7 +64,8 @@
 
                 <!-- users -->
                 <li class="nav-main-item">
-                    <a class="nav-main-link {{ Route::currentRouteName() === 'clients.index' ? 'active' : ''}}" href="{{route('clients.index')}}">
+                    <a class="nav-main-link {{ Route::currentRouteName() === 'clients.index' ? 'active' : ''}}"
+                       href="{{route('clients.index')}}">
                         <i class="nav-main-link-icon fas fa-users"></i>
                         <span class="nav-main-link-name">{{ __('sidebar.users') }}</span>
                     </a>
@@ -72,7 +73,8 @@
 
                 <!-- merchants -->
                 <li class="nav-main-item">
-                    <a class="nav-main-link {{ Route::currentRouteName() === 'merchants.index' ? 'active' : ''}}" href="{{route('merchants.index')}}">
+                    <a class="nav-main-link {{ Route::currentRouteName() === 'merchants.index' ? 'active' : ''}}"
+                       href="{{route('merchants.index')}}">
                         <i class="nav-main-link-icon fas fa-users"></i>
                         <span class="nav-main-link-name">{{ __('sidebar.Merchants') }}</span>
                     </a>
@@ -89,15 +91,16 @@
 
                 <li class="nav-main-heading">{{ __('sidebar.admin_sections') }}</li>
 
-            <!-- Reports -->
+                <!-- Pages -->
                 <li class="nav-main-item">
-                    <a class="nav-main-link" href="#">
+                    <a class="nav-main-link {{ Route::currentRouteName() === 'pages.index' ? 'active' : ''}}"
+                       href="{{route('pages.index')}}">
                         <i class="nav-main-link-icon far fa-flag"></i>
                         <span class="nav-main-link-name">{{ __('sidebar.pages') }}</span>
                     </a>
                 </li>
 
-
+                <!-- Reports -->
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="#">
                         <i class="nav-main-link-icon far fa-copy"></i>
@@ -117,8 +120,9 @@
 
                         <!-- Home -->
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="#">
-                                <span class="nav-main-link-name">واجهة الموقع</span>
+                            <a class="nav-main-link" href="{{route('settings.index')}}">
+                                <i class="nav-main-link-icon fas fa-cogs"></i>
+                                <span class="nav-main-link-name">إعدادات</span>
                             </a>
                         </li>
                     </ul>
@@ -158,7 +162,7 @@
 
 
             <div class="nav-main-item go_to_site">
-                <a href="#">
+                <a href="{{url('/')}}" target="_blank">
                     <i class="nav-main-link-icon fas fa-globe"></i>
                     <span class="nav-main-link-name" style="color: #0A63A5">{{ __('sidebar.go_to_site') }}</span>
                 </a>
