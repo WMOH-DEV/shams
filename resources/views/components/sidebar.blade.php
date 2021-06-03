@@ -100,9 +100,18 @@
                     </a>
                 </li>
 
+
+                <!-- opinions -->
+                <li class="nav-main-item">
+                    <a class="nav-main-link" href="{{route('opinions.index')}}">
+                        <i class="nav-main-link-icon far fa-comment"></i>
+                        <span class="nav-main-link-name">{{ __('sidebar.comments') }}</span>
+                    </a>
+                </li>
+
                 <!-- Reports -->
                 <li class="nav-main-item">
-                    <a class="nav-main-link" href="#">
+                    <a class="nav-main-link {{ Route::currentRouteName() === 'reports.index' ? 'active' : ''}}" href="{{route('reports.index')}}">
                         <i class="nav-main-link-icon far fa-copy"></i>
                         <span class="nav-main-link-name">{{ __('sidebar.reports') }}</span>
                     </a>

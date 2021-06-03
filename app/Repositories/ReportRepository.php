@@ -68,23 +68,46 @@ class ReportRepository
         return \GuzzleHttp\json_encode($usersWeek);
     }
 
-    public function salesOfWeek()
-    {
 
-        $lastWeekSalesData =  DB::table('orders')
-            ->select(\Illuminate\Support\Facades\DB::raw('DAY(created_at) as day'), DB::raw('sum(total) as total'))
-            ->where('admin_status', 'تم الدفع')
+    public function merchantsOfWeek()
+    {
+        Carbon::setWeekStartsAt(Carbon::SUNDAY);
+        Carbon::setWeekEndsAt(Carbon::SATURDAY);
+
+        $lastWeekUsersData =  DB::table('users')
+            ->select(\Illuminate\Support\Facades\DB::raw('DAY(created_at) as day'), DB::raw('count(*) as total'))
+            ->where('role_id', '2')
             ->whereDate('created_at', '>=', Carbon::today()->subWeek())
             ->whereDate('created_at', '<=', Carbon::today())
             ->groupBy(DB::raw('DAY(created_at)') )
             ->get();
 
-        $saleWeek = [];
-        foreach ($lastWeekSalesData  as $item){
-            array_push($saleWeek, $item->total);
+        $merchantsWeek = [];
+        foreach ($lastWeekUsersData as $item){
+            array_push($merchantsWeek, $item->total);
         }
 
-        return \GuzzleHttp\json_encode($saleWeek);
+        return \GuzzleHttp\json_encode($merchantsWeek);
     }
+
+
+//    public function salesOfWeek()
+//    {
+//
+//        $lastWeekSalesData =  DB::table('orders')
+//            ->select(\Illuminate\Support\Facades\DB::raw('DAY(created_at) as day'), DB::raw('sum(total) as total'))
+//            ->where('admin_status', 'تم الدفع')
+//            ->whereDate('created_at', '>=', Carbon::today()->subWeek())
+//            ->whereDate('created_at', '<=', Carbon::today())
+//            ->groupBy(DB::raw('DAY(created_at)') )
+//            ->get();
+//
+//        $saleWeek = [];
+//        foreach ($lastWeekSalesData  as $item){
+//            array_push($saleWeek, $item->total);
+//        }
+//
+//        return \GuzzleHttp\json_encode($saleWeek);
+//    }
 
 }

@@ -44,25 +44,21 @@
                 </li>
                 <li class="nav-item mr-auto">
                     <div class="block-options pl-2 pr-3">
-                        @if ($previous)
-                            <a onclick="location.href='{{ route("orders.show", $previous->id)}}'" type="button"
-                               class="btn-block-option">
+                            <a onclick="location.href='{{ $previous ? route("orders.show", $previous->id) : '#'}}'" type="button"
+                               class="btn-sm btn btn-outline-info {{!$previous ? 'disabled' : ''}}">
                                 <i class="si si-arrow-right"></i>
-                                <span>الطلب السابق</span>
+                                <span> السابق</span>
                             </a>
-                        @endif
 
                         @if ($previous AND $next)
                                 <span class="mx-1">|</span>
                         @endif
 
-                        @if ($next)
-                            <a onclick="location.href='{{route("orders.show", $next->id)}}'" type="button"
-                               class="btn-block-option ">
-                                <span>الطلب التالي</span>
+                            <a onclick="location.href='{{$next ? route("orders.show", $next->id) : '#'}}'" type="button"
+                               class="btn-sm btn btn-outline-info {{!$next ? 'disabled' : ''}}">
+                                <span> التالي</span>
                                 <i class="si si-arrow-left"></i>
                             </a>
-                        @endif
                     </div>
                 </li>
             </ul>

@@ -2,7 +2,11 @@
     <x-message/>
     <div class="block block-rounded">
         <div class="block-header block-header-default">
-            <h3 class="block-title">  {{ __('global.list') }} {{ __('global.comments') }} </h3>
+            <h5 class="h6 mb-1">
+                <a href="{{route('admincp.index')}}">{{ __('global.main') }}</a>
+                <i class="fas fa-angle-left px-2"></i>
+                <span> آراء المستخدمين</span>
+            </h5>
             <div class="block-options">
                 <button type="button" class="btn btn-sm btn-alt-primary" data-toggle="block-option"
                         data-action="fullscreen_toggle"><i class="si si-size-fullscreen"></i></button>
@@ -113,9 +117,9 @@
 
                         </th>
 
-                        <th class="text-center">رقم ID</th>
+                        <th class="text-center">الصورة</th>
                         <th class="text-center">الإسم</th>
-                        <th class="text-center" style="width: 40%">التعليق</th>
+                        <th class="text-center" style="width: 40%">رأي المستخدم</th>
                         <th class="text-center">الحالة</th>
                         <th class="text-center">تاريخ الإضافة</th>
                         <th class="text-center" style="width: 100px;">الاجراءات</th>
@@ -136,14 +140,14 @@
                                     <label class="custom-control-label" for="{{$comment->id}}"></label>
                                 </div>
                             </td>
-                            <td class="text-center">{{ $comment->id }}</td>
+                            <td class="text-center"><img src="{{$comment->user->image_path}}"  style="height: 50px" class="mx-auto"></td>
                             <td class="text-center">{{ $comment->user->name }}</td>
-                            <td class="text-center">{{strlen(utf8_decode($comment->comment)) >= 100 ? mb_substr($comment->comment, 0, 70,'utf-8').'...': $comment->comment}}</td>
+                            <td class="text-center">{{strlen(utf8_decode($comment->desc)) >= 100 ? mb_substr($comment->desc, 0, 70,'utf-8').'...': $comment->desc}}</td>
                             <td class="text-center">
                                 @if ($comment->active == 1)
-                                    <span class="badge badge-pill badge-primary">مفعل <i class="fa fa-fw fa-check"></i> </span>
+                                    <span class="badge badge-pill badge-primary">معتمد <i class="fa fa-fw fa-check"></i> </span>
                                 @else
-                                    <span class="badge badge-pill badge-danger">غير مفعل <i class="fa fa-fw fa-times-circle"></i> </span>
+                                    <span class="badge badge-pill badge-danger">مخفي <i class="fa fa-fw fa-times-circle"></i> </span>
                                 @endif
                             </td>
                             <td class="text-center">{{ $comment->created_at->format('Y-m-d') }}</td>
@@ -155,9 +159,9 @@
                                        data-toggle="tooltip" title="اعتماد أو إلغاء الاعتماد" data-original-title="Edit">
                                         <i class="fa fa-check-circle"></i>
                                     </button>
-                                    <a href="{{route('comments.show', $comment->id)}}" type="button"
+                                    <a href="{{route('opinions.show', $comment->id)}}" type="button"
                                        class="btn btn-sm btn-primary js-tooltip-enabled btn-mid"
-                                       data-toggle="tooltip" title="عرض التعليق" data-original-title="show">
+                                       data-toggle="tooltip" title="عرض الرأي" data-original-title="show">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     <button type="button" class="btn btn-sm btn-primary js-tooltip-enabled btn-left"
@@ -165,7 +169,7 @@
                                             data-target="#modal-delete{{$comment->id}}">
                                         <i class="fa fa-times"></i>
                                     </button>
-                                    @include('admin.comments.inc.del-modal')
+                                    @include('admin.opinions.inc.del-modal')
                                 </div>
                             </td>
                         </tr>

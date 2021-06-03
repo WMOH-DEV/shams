@@ -49,4 +49,9 @@ class Merchant extends Model
     {
         return $this->hasMany(Order::class,'user_id');
     }
+
+    public function prices()
+    {
+        return $this->hasMany(Price::class , 'user_id');
+    }
 }

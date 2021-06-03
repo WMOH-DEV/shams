@@ -28,5 +28,5 @@ return [
     'merchants' => 'التجار',
     'tickets' => 'التذاكر',
     'orders' => 'الطلبات',
-    'comments' => 'التعليقات',
+    'comments' => 'آراء المستخدمين',
 ];
