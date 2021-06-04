@@ -15,7 +15,7 @@ return [
     'site'                  => 'شمس',
     'main'                  => 'الرئيسية',
     'author_link'           => 'https://www.fb.com/WaelMohElSaid',
-    'latest_requests'       => 'آخر عمليات الشراء',
+    'latest_requests'       => 'آخر طلبات',
     'latest_register'       => 'آخر عمليات التسجيل',
     'sales_report'       => 'تقرير المبيعات',
 

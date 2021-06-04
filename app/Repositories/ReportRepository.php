@@ -35,7 +35,7 @@ class ReportRepository
             ->select(\Illuminate\Support\Facades\DB::raw('DAY(created_at) as day'), DB::raw('count(*) as total'))
             ->whereDate('created_at', '>=', Carbon::today()->subWeek())
             ->whereDate('created_at', '<=', Carbon::today())
-            ->groupBy(DB::raw('DAY(created_at)') )
+            ->groupBy(DB::raw('(created_at)') )
             ->get();
 
         $orderWeek = [];
@@ -49,22 +49,24 @@ class ReportRepository
 
     public function usersOfWeek()
     {
-        Carbon::setWeekStartsAt(Carbon::SUNDAY);
-        Carbon::setWeekEndsAt(Carbon::SATURDAY);
+//        Carbon::setWeekStartsAt(Carbon::SUNDAY);
+//        Carbon::setWeekEndsAt(Carbon::SATURDAY);
 
         $lastWeekUsersData =  DB::table('users')
             ->select(\Illuminate\Support\Facades\DB::raw('DAY(created_at) as day'), DB::raw('count(*) as total'))
             ->where('role_id', '1')
             ->whereDate('created_at', '>=', Carbon::today()->subWeek())
             ->whereDate('created_at', '<=', Carbon::today())
-            ->groupBy(DB::raw('DAY(created_at)') )
+            ->groupBy(DB::raw('(created_at)') )
             ->get();
 
+       // return $lastWeekUsersData;
         $usersWeek = [];
         foreach ($lastWeekUsersData as $item){
             array_push($usersWeek, $item->total);
         }
 
+      //  $usersWeek = array_reverse($usersWeek);
         return \GuzzleHttp\json_encode($usersWeek);
     }
 
@@ -79,7 +81,7 @@ class ReportRepository
             ->where('role_id', '2')
             ->whereDate('created_at', '>=', Carbon::today()->subWeek())
             ->whereDate('created_at', '<=', Carbon::today())
-            ->groupBy(DB::raw('DAY(created_at)') )
+            ->groupBy(DB::raw('(created_at)') )
             ->get();
 
         $merchantsWeek = [];

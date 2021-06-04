@@ -5,7 +5,7 @@
 @endsection
 
 @section('navbar')
-    <x-top-nav />
+    <x-top-nav/>
 @endsection
 
 @section('content')
@@ -73,7 +73,7 @@
                             </div>
                             <div class="block-content">
                                 <ul class="timeline">
-{{--                                    @foreach ($lastOrders as $order)--}}
+                                    @foreach ($lastOrders as $order)
                                         <li class="timeline-event">
                                             <div class="timeline-event-icon bg-danger">
                                                 <i class="fas fa-donate"></i>
@@ -84,25 +84,25 @@
                                                 <div class="block-header block-header-default">
                                                     <div class="head">
                                                         <h3 class="block-title font-w600" style="font-size: 0.8rem">
-                                                           username
+                                                            {{ $order->user->name }}
                                                         </h3>
                                                         <div class="d-flex justify-between">
                                                             <span class="font-size-xs">
                                                                 <i class="far fa-envelope"></i>
-                                                                email@email.com
+                                                                {{ $order->user->email }}
                                                             </span>
                                                         </div>
                                                     </div>
                                                     <div class="block-options">
                                                         <div
                                                             class="timeline-event-time block-options-item font-size-sm font-w400">
-                                                            10/10/10
+                                                            {{ $order->created_at->diffForHumans() }}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </li>
-                                        {{--                                    @endforeach--}}
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -123,38 +123,38 @@
                             <div class="block-content">
                                 <ul class="timeline">
 
-                                {{--                                @foreach ($lastRegisteredClients as $client)--}}
-                                <!-- new buy -->
-                                    <li class="timeline-event">
-                                        <div class="timeline-event-icon bg-default">
-                                            <i class="fas fa-user-alt"></i>
-                                        </div>
-                                        <div
-                                            class="timeline-event-block block block-rounded js-appear-enabled animated fadeIn"
-                                            data-toggle="appear">
-                                            <div class="block-header block-header-default">
-                                                <div class="head">
-                                                    <h3 class="block-title font-w600" style="font-size: 0.8rem">
-                                                       Ahmed
-                                                    </h3>
-                                                    <div class="d-flex justify-between">
+                                @foreach ($lastRegisteredClients as $client)
+                                    <!-- new buy -->
+                                        <li class="timeline-event">
+                                            <div class="timeline-event-icon bg-default">
+                                                <i class="fas fa-user-alt"></i>
+                                            </div>
+                                            <div
+                                                class="timeline-event-block block block-rounded js-appear-enabled animated fadeIn"
+                                                data-toggle="appear">
+                                                <div class="block-header block-header-default">
+                                                    <div class="head">
+                                                        <h3 class="block-title font-w600" style="font-size: 0.8rem">
+                                                            {{ $client->name }}
+                                                        </h3>
+                                                        <div class="d-flex justify-between">
                                                             <span class="font-size-xs">
                                                                 <i class="far fa-envelope"></i>
-                                                               ahmed@ahmed.com
+                                                                {{ $client->email }}
                                                             </span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="block-options">
-                                                    <div
-                                                        class="timeline-event-time block-options-item font-size-sm font-w400">
-                                                       20/20/20
+                                                    <div class="block-options">
+                                                        <div
+                                                            class="timeline-event-time block-options-item font-size-sm font-w400">
+                                                            {{ $client->created_at->diffForHumans() }}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <!-- END new buy -->
-                                    {{--                                    @endforeach--}}
+                                        </li>
+                                        <!-- END new buy -->
+                                    @endforeach
 
                                 </ul>
                             </div>
@@ -170,11 +170,11 @@
                         <div class="item rounded-lg bg-body-dark mx-auto my-3">
                             <i class="fa fa-users text-muted"></i>
                         </div>
-                        <div class="text-black font-size-h1 font-w700">32</div>
+                        <div class="text-black font-size-h1 font-w700">{{$merchantsCount}}</div>
                         <div class="text-muted mb-3">عدد التجار</div>
                     </div>
                     <div class="block-content block-content-full block-content-sm bg-body-light font-size-sm">
-                        <a class="font-w500" href="#">
+                        <a class="font-w500" href="{{route('merchants.index')}}">
                             {{ __('global.view_all') }}
                             <i class="fa fa-arrow-left mr-1 opacity-25"></i>
                         </a>
@@ -185,11 +185,11 @@
                         <div class="item rounded-lg bg-body-dark mx-auto my-3">
                             <i class="fa fa-users text-muted"></i>
                         </div>
-                        <div class="text-black font-size-h1 font-w700">32</div>
+                        <div class="text-black font-size-h1 font-w700">{{$clientsCount}}</div>
                         <div class="text-muted mb-3">عدد العملاء</div>
                     </div>
                     <div class="block-content block-content-full block-content-sm bg-body-light font-size-sm">
-                        <a class="font-w500" href="#">
+                        <a class="font-w500" href="{{route('clients.index')}}">
                             {{ __('global.view_all') }}
                             <i class="fa fa-arrow-left mr-1 opacity-25"></i>
                         </a>
@@ -200,11 +200,28 @@
                         <div class="item rounded-lg bg-body-dark mx-auto my-3">
                             <i class="fa fa-users text-muted"></i>
                         </div>
-                        <div class="text-black font-size-h1 font-w700">32</div>
+                        <div class="text-black font-size-h1 font-w700">{{$ordersCount}}</div>
                         <div class="text-muted mb-3">عدد الطلبات</div>
                     </div>
                     <div class="block-content block-content-full block-content-sm bg-body-light font-size-sm">
-                        <a class="font-w500" href="#">
+                        <a class="font-w500" href="{{route('orders.index')}}">
+                            {{ __('global.view_all') }}
+                            <i class="fa fa-arrow-left mr-1 opacity-25"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- prices -->
+                <div class="block block-rounded text-center d-flex flex-column">
+                    <div class="block-content block-content-full flex-grow-1 p-2">
+                        <div class="item rounded-lg bg-body-dark mx-auto my-3">
+                            <i class="fa fa-users text-muted"></i>
+                        </div>
+                        <div class="text-black font-size-h1 font-w700">{{$pricesCount}}</div>
+                        <div class="text-muted mb-3">عدد العروض</div>
+                    </div>
+                    <div class="block-content block-content-full block-content-sm bg-body-light font-size-sm">
+                        <a class="font-w500" href="{{route('orders.index')}}">
                             {{ __('global.view_all') }}
                             <i class="fa fa-arrow-left mr-1 opacity-25"></i>
                         </a>
@@ -224,13 +241,36 @@
 
     {{--    {!! $chart->renderChartJsLibrary() !!}--}}
     {{--    {!! $chart->renderJs() !!}--}}
+    <script type="text/javascript">
+
+        let sales = {!! $sales !!};
+        let yearSales = [];
+
+        for (let i = 1; i <= 12; i++) {
+            yearSales.push(sales[i]);
+            // console.log(yearSales)
+        }
+
+        let offers = {!! $offers !!};
+        let yearOffers = [];
+
+        for (let i = 1; i <= 12; i++) {
+            yearOffers.push(offers[i]);
+            // console.log(yearSales)
+        }
+
+    </script>
 
     <script>
+
+
         class pageDashboard {
             /*
              * Chart.js, for more examples you can check out http://www.chartjs.org/docs
              *
              */
+
+
             static initChartsBars() {
                 // Set Global Chart.js configuration
                 Chart.defaults.global.defaultFontColor = '#495057';
@@ -252,7 +292,7 @@
                         'أكتوبر', 'نوقمبر', 'ديسمبر'
                     ],
                     datasets: [{
-                        label: 'مبيعات الشهر',
+                        label: 'طلبات الشهر',
                         fill: true,
                         backgroundColor: 'rgba(6, 101, 208, .6)',
                         borderColor: 'transparent',
@@ -260,9 +300,23 @@
                         pointBorderColor: '#fff',
                         pointHoverBackgroundColor: '#fff',
                         pointHoverBorderColor: 'rgba(6, 101, 208, 1)',
-                        data: [23, 60, 59, 20, 59, 56, 73, 20, 15, 3, 60, 33]
-                    }]
+                        data: yearSales
+                    },
+                        {
+                            label: 'عروض الشهر',
+                            fill: true,
+                            backgroundColor: "rgba(6, 101, 208, .2)",
+                            borderColor: 'transparent',
+                            pointBackgroundColor: 'rgba(6, 101, 208, 2)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(6, 101, 208, 2)',
+                            data: yearOffers
+                        },
+
+                    ]
                 };
+
 
                 // Init Chart
                 if (chartBarsCon.length) {
@@ -275,7 +329,7 @@
                                 callbacks: {
                                     label: function (tooltipItems, data) {
                                         return data.datasets[tooltipItems.datasetIndex].label + ': ' +
-                                            tooltipItems.yLabel + ' تذكرة ';
+                                            tooltipItems.yLabel ;
                                     }
                                 }
                             }

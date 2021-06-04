@@ -88,7 +88,7 @@
                     <div class="block-content block-content-full d-flex align-items-center justify-content-between">
                         <div class="mr-3">
                             <p class="font-size-h3 font-w300 mb-0">
-                                {{$confirmedMerchants}}
+                                {{$unConfirmedMerchants}}
                             </p>
                             <p class="text-muted mb-0">
                                تجار غير مُعتمدين

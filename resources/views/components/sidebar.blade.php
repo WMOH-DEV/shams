@@ -82,7 +82,7 @@
 
                 <!-- Orders -->
                 <li class="nav-main-item">
-                    <a class="nav-main-link " href="{{route('orders.index')}}">
+                    <a class="nav-main-link  {{ Route::currentRouteName() === 'orders.index' ? 'active' : ''}}" href="{{route('orders.index')}}">
                         <i class="nav-main-link-icon fas fa-calendar-week"></i>
                         <span class="nav-main-link-name">{{ __('sidebar.orders') }}</span>
                     </a>

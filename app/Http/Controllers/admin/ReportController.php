@@ -22,29 +22,21 @@ class ReportController extends Controller
 
     public function index()
     {
+//       / dd($this->reportRepository->usersOfWeek());
         $currentMonthUsers = $this->reportRepository->usersMonthCount();
         $currentMonthMerchants = $this->reportRepository->merchantsMonthCount();
         $totalOrders = Order::count();
    //     $tickets = Ticket::count();
-        $sales = Order::where('accepted_price', '!=' ,'null')->count();
-        $debits = Order::where('accepted_price', '==' ,'null')->count();
+        $sales = Order::whereNotNull('accepted_price')->count();
+        $debits = Order::whereNull('accepted_price')->count();
+       // dd($debits);
         $rushOrders = Order::where('delivery','مستعجل')->count();
         $confirmedMerchants = Merchant::where('role_id','2')
             ->where('certified', '1')
             ->count();
         $unConfirmedMerchants = Merchant::where('role_id','2')
-            ->where('certified', '0')
+            ->where('certified', 0)
             ->count();
-
-//        $salesMonth = Order::where('admin_status', 'تم الدفع')
-//            ->whereMonth('created_at', Carbon::now()->month)
-//            ->sum('total');
-
-//        $debitsMonth = Order::select('total')
-//            ->where('admin_status', 'لم يتم الدفع')
-//            ->whereMonth('created_at', Carbon::now()->month)
-//            ->sum('total');
-
         $totalAcceptedPrices = Price::where('isAccepted', '!=', '0')->count();
         $totalPrices = Price::count();
         $totalUsers = User::where('role_id', 1)->count();
