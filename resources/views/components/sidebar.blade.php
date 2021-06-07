@@ -55,7 +55,7 @@
             <ul class="nav-main">
                 <li class="nav-main-item">
                     <a class="nav-main-link {{ Route::currentRouteName() === 'admincp.index' ? 'active' : ''}}"
-                       href="/admincp">
+                       href="{{route('admincp.index')}}">
                         <i class="nav-main-link-icon fa fa-home"></i>
                         <span class="nav-main-link-name">{{ __('sidebar.main_page') }}</span>
                     </a>
@@ -109,13 +109,7 @@
                     </a>
                 </li>
 
-                <!-- Reports -->
-                <li class="nav-main-item">
-                    <a class="nav-main-link {{ Route::currentRouteName() === 'reports.index' ? 'active' : ''}}" href="{{route('reports.index')}}">
-                        <i class="nav-main-link-icon far fa-copy"></i>
-                        <span class="nav-main-link-name">{{ __('sidebar.reports') }}</span>
-                    </a>
-                </li>
+
 
 
                 <!-- System -->
@@ -127,13 +121,24 @@
                     </a>
                     <ul class="nav-main-submenu">
 
-                        <!-- Home -->
+                        <!-- Reports -->
+                        <li class="nav-main-item">
+                            <a class="nav-main-link {{ Route::currentRouteName() === 'reports.index' ? 'active' : ''}}" href="{{route('reports.index')}}">
+                                <i class="nav-main-link-icon far fa-copy"></i>
+                                <span class="nav-main-link-name">{{ __('sidebar.reports') }}</span>
+                            </a>
+                        </li>
+
+
+                        <!-- settings -->
                         <li class="nav-main-item">
                             <a class="nav-main-link" href="{{route('settings.index')}}">
                                 <i class="nav-main-link-icon fas fa-cogs"></i>
                                 <span class="nav-main-link-name">إعدادات</span>
                             </a>
                         </li>
+
+
                     </ul>
                 </li>
 

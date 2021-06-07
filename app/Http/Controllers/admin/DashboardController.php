@@ -20,7 +20,8 @@ class DashboardController extends Controller
         $merchantsCount = User::where('role_id', '2')->count();
         $ordersCount = Order::count();
         $pricesCount = Price::count();
-        $lastRegisteredClients = User::where('role_id', '1')->latest('id')->take(5)->get();
+        $lastRegisteredClients = User::whereIn('role_id', ['1','2'])->latest('id')->take(5)->get();
+      //  dd($lastRegisteredClients);
         $lastOrders = Order::latest('id')->take(5)->get();
 
         return view('admin.index', compact('clientsCount',

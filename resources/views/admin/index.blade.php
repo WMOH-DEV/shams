@@ -124,7 +124,7 @@
                                 <ul class="timeline">
 
                                 @foreach ($lastRegisteredClients as $client)
-                                    <!-- new buy -->
+                                    <!-- new register -->
                                         <li class="timeline-event">
                                             <div class="timeline-event-icon bg-default">
                                                 <i class="fas fa-user-alt"></i>
@@ -133,14 +133,19 @@
                                                 class="timeline-event-block block block-rounded js-appear-enabled animated fadeIn"
                                                 data-toggle="appear">
                                                 <div class="block-header block-header-default">
-                                                    <div class="head">
+                                                    <div class="head w-75">
                                                         <h3 class="block-title font-w600" style="font-size: 0.8rem">
                                                             {{ $client->name }}
                                                         </h3>
                                                         <div class="d-flex justify-between">
                                                             <span class="font-size-xs">
-                                                                <i class="far fa-envelope"></i>
-                                                                {{ $client->email }}
+                                                                <i class="fas fa-map-marker-alt"></i>
+                                                                {{ $client->city->name }}
+                                                            </span>
+
+                                                            <span class="font-size-xs ">
+                                                                <i class="far fa-user"></i>
+                                                                {{ $client->role->name }}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -248,7 +253,6 @@
 
         for (let i = 1; i <= 12; i++) {
             yearSales.push(sales[i]);
-            // console.log(yearSales)
         }
 
         let offers = {!! $offers !!};
@@ -256,7 +260,6 @@
 
         for (let i = 1; i <= 12; i++) {
             yearOffers.push(offers[i]);
-            // console.log(yearSales)
         }
 
     </script>
@@ -265,11 +268,6 @@
 
 
         class pageDashboard {
-            /*
-             * Chart.js, for more examples you can check out http://www.chartjs.org/docs
-             *
-             */
-
 
             static initChartsBars() {
                 // Set Global Chart.js configuration

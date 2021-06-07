@@ -183,15 +183,17 @@
                             <!-- Actions -->
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <a href="{{route('quotations.show', $order->id)}}" type="button"
+
+                                    <a href="{{route('orders.show', $order->id)}}" type="button"
                                        class="btn btn-sm btn-primary js-tooltip-enabled btn-right"
+                                       data-toggle="tooltip" title="عرض الطلب" data-original-title="show">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+
+                                    <a href="{{route('quotations.show', $order->id)}}" type="button"
+                                       class="btn btn-sm btn-primary js-tooltip-enabled btn-mid"
                                        data-toggle="tooltip" title="العروض المقدمة" data-original-title="prices">
                                         <i class="fa fa-search"></i>
-                                    </a>
-                                    <a href="{{route('orders.show', $order->id)}}" type="button"
-                                       class="btn btn-sm btn-primary js-tooltip-enabled btn-mid"
-                                       data-toggle="tooltip" title="" data-original-title="show">
-                                        <i class="fa fa-eye"></i>
                                     </a>
 
 
@@ -221,14 +223,12 @@
 
 @section('css')
     <link rel="stylesheet" href="{{asset('admin/assets')}}/js/plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css" integrity="sha512-0nkKORjFgcyxv3HbE4rzFUlENUMNqic/EzDIeYCgsKa/nwqr2B91Vu/tNAu4Q0cBuG4Xe/D1f/freEci/7GDRA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
 
 @section('js')
 
     <script src="{{asset('admin/assets')}}/js/plugins/select2/js/select2.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/ar.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
 
