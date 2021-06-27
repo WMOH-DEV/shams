@@ -41,7 +41,13 @@ class OrderController extends Controller
 
         $previous = $this->getPrevious($order);
         $next = $this->getNext($order);
-        return view('admin.orders.show', compact('order', 'previous', 'next'));
+        $accepted = Order::
+            whereHas('prices', function ($q){
+           $q->where('isAccepted', true);
+        })->where('id', $order->id)
+            ->first();
+       // dd($accepted);
+        return view('admin.orders.show', compact('order','accepted', 'previous', 'next'));
 
     }
 

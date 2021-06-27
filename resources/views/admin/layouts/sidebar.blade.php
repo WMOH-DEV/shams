@@ -1,2 +1,2 @@
-<x-side-bar></x-side-bar>
+<x-sidebar></x-sidebar>
 <!-- END Sidebar -->

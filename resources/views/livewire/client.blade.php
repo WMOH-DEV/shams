@@ -141,7 +141,7 @@
                             <td class="text-center">{{ $client->phone }}</td>
                             <td class="text-center">{{ $client->city->name }}</td>
                             <td class="text-center">{{ $client->email }}</td>
-                            <td class="text-center">{{ $client->created_at->format('Y-m-d') }}</td>
+                            <td class="text-center">{{ $client->created_at ? $client->created_at->format('Y-m-d') : 'القيمة غير موجودة' }}</td>
                             <!-- Actions -->
                             <td class="text-center">
                                 <div class="btn-group">

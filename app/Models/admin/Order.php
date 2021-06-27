@@ -23,6 +23,22 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function modela()
+    {
+        return $this->belongsTo(Modela::class);
+    }
+
+    public function prices()
+    {
+        return $this->hasMany(Price::class);
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+
     public function scopeSearch($query, $term)
     {
         $term = "%$term%";

@@ -72,7 +72,7 @@
                           w-75 mx-auto
                            my-5
                            progress-start
-                           {{ $order->accepted_price ? 'progress-mid' : '' }}
+                           {{ $accepted ? 'progress-mid' : '' }}
                             position-relative">
                             <li class="progress-point-start">مرحلة تلقي العروض</li>
                             <li class="progress-point-mid">مرحلة تجهيز الطلب</li>
@@ -123,7 +123,7 @@
                                         الشركة المطلوبة
                                     </th>
                                     <td class="font-w500">
-                                        {{$order->company_car}}
+                                        {{$order->company->name}}
                                     </td>
                                 </tr>
 
@@ -133,7 +133,7 @@
                                         الموديل
                                     </th>
                                     <td class="font-w500" style="width: 30%">
-                                        {{$order->model}}
+                                        {{$order->modela->name}}
                                     </td>
                                     <th scope="row" style="width: 20%" class="bg-white">
                                         سنة الموديل
@@ -180,6 +180,43 @@
                         </div>
                     </div>
 
+                    <!-- Slider with multiple images and center mode -->
+                    @if ($order->image2)
+                        <div class="block">
+                            <div class="block-header block-header-default">
+                                <h3 class="block-title">
+                                    <i class="fa fa-play fa-fw text-primary"></i> معرض الصور
+                                </h3>
+                            </div>
+                            <div class="js-slider slick-nav-black slick-nav-hover responsive" dir="ltr" data-dots="true"
+                                 data-arrows="true" data-slides-to-show="3" data-center-mode="true" data-autoplay="true"
+                                 data-autoplay-speed="3000">
+                                <div>
+                                    <img class="img-fluid" style="height:250px" src="{{ asset("uploads/$order->image") }}"
+                                         alt="{{ $order->name }}">
+                                </div>
+                                <div>
+                                    <img class="img-fluid" style="height:250px" src="{{ asset("uploads/$order->image2") }}"
+                                         alt="{{ $order->name }}">
+                                </div>
+                                @if ( $order->image3 )
+                                    <div>
+                                        <img class="img-fluid" style="height:250px"
+                                             src="{{ asset("uploads/$order->image3") }}"
+                                             alt="{{ $order->name }}">
+                                    </div>
+                                @endif
+                                @if ($order->image4)
+                                    <div>
+                                        <img class="img-fluid" style="height:250px"
+                                             src="{{ asset("uploads/$order->image4") }}"
+                                             alt="{{ $order->name }}">
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                @endif
+                <!-- END Slider with multiple images and center mode -->
 
                 </div>
                 <!-- Customer Details -->
@@ -234,43 +271,6 @@
                     </div>
                 </div>
 
-                <!-- Slider with multiple images and center mode -->
-                @if ($order->image2)
-                    <div class="block">
-                        <div class="block-header block-header-default">
-                            <h3 class="block-title">
-                                <i class="fa fa-play fa-fw text-primary"></i> معرض الصور
-                            </h3>
-                        </div>
-                        <div class="js-slider slick-nav-black slick-nav-hover responsive" dir="ltr" data-dots="true"
-                             data-arrows="true" data-slides-to-show="3" data-center-mode="true" data-autoplay="true"
-                             data-autoplay-speed="3000">
-                            <div>
-                                <img class="img-fluid" style="height:250px" src="{{ asset("uploads/$order->image") }}"
-                                     alt="{{ $order->name }}">
-                            </div>
-                            <div>
-                                <img class="img-fluid" style="height:250px" src="{{ asset("uploads/$order->image2") }}"
-                                     alt="{{ $order->name }}">
-                            </div>
-                            @if ( $order->image3 )
-                                <div>
-                                    <img class="img-fluid" style="height:250px"
-                                         src="{{ asset("uploads/$order->image3") }}"
-                                         alt="{{ $order->name }}">
-                                </div>
-                            @endif
-                            @if ($order->image4)
-                                <div>
-                                    <img class="img-fluid" style="height:250px"
-                                         src="{{ asset("uploads/$order->image4") }}"
-                                         alt="{{ $order->name }}">
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-            @endif
-            <!-- END Slider with multiple images and center mode -->
 
             </div>
         </div>

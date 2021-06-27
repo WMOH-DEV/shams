@@ -27,8 +27,14 @@ class ReportController extends Controller
         $currentMonthMerchants = $this->reportRepository->merchantsMonthCount();
         $totalOrders = Order::count();
    //     $tickets = Ticket::count();
-        $sales = Order::whereNotNull('accepted_price')->count();
-        $debits = Order::whereNull('accepted_price')->count();
+//        $sales = Order::whereNotNull('accepted_price')->count();
+        $sales = Order::whereHas('prices', function ($q) {
+            $q->where('isAccepted', true);
+        })->count();
+//        $debits = Order::whereNull('accepted_price')->count();
+        $debits = Order::whereHas('prices', function ($q) {
+            $q->where('isAccepted', false);
+        })->count();
        // dd($debits);
         $rushOrders = Order::where('delivery','مستعجل')->count();
         $confirmedMerchants = Merchant::where('role_id','2')

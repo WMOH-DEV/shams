@@ -183,10 +183,14 @@
             </div>
 
             <div class="nav-main-item btn-hover log_out">
-                <a href="#">
+                <a onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="#route('logout')">
                     <i class="nav-main-link-icon fas fa-sign-out-alt "></i>
                     <span class="nav-main-link-name noselect">{{ __('sidebar.log_out') }}</span>
                 </a>
+
+                <form id="logout-form" action="{{route('logout')}}" method="POST">
+                    @csrf
+                </form>
             </div>
         </div>
         <!-- END Side Navigation -->
