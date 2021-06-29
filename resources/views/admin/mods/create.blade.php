@@ -4,7 +4,7 @@
 
 @section('css')
 
-    <link rel="stylesheet" href="{{asset('assets')}}/js/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="{{asset('admin/assets')}}/js/plugins/select2/css/select2.min.css">
 
 @endsection
 
@@ -117,12 +117,12 @@
                         </th>
                         <td class="font-w600">
                           <select
-                            name="roles"
+                            name="role_id"
                             id="roles"
                             class="js-select2 form-control js-select2-enabled">
                             <option value>إختيار الدور</option>
                             @foreach ($roles as $role)
-                              <option value="{{$role}}">{{$role}}</option>
+                              <option value="{{$role->id}}">{{$role->name}}</option>
                             @endforeach
                           </select>
                         </td>
@@ -144,7 +144,7 @@
 
     <!-- Page JS Code -->
 
-    <script src="{{asset('assets')}}/js/plugins/select2/js/select2.full.min.js"></script>
+    <script src="{{asset('admin/assets')}}/js/plugins/select2/js/select2.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/ar.min.js"></script>
 
 

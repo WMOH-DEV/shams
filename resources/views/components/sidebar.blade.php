@@ -82,14 +82,18 @@
 
                 <!-- Orders -->
                 <li class="nav-main-item">
-                    <a class="nav-main-link  {{ Route::currentRouteName() === 'orders.index' ? 'active' : ''}}" href="{{route('orders.index')}}">
+                    <a class="nav-main-link  {{ Route::currentRouteName() === 'orders.index' ? 'active' : ''}}"
+                       href="{{route('orders.index')}}">
                         <i class="nav-main-link-icon fas fa-calendar-week"></i>
                         <span class="nav-main-link-name">{{ __('sidebar.orders') }}</span>
                     </a>
                 </li>
 
 
+                @superAdmin
+
                 <li class="nav-main-heading">{{ __('sidebar.admin_sections') }}</li>
+
 
                 <!-- Pages -->
                 <li class="nav-main-item">
@@ -109,8 +113,28 @@
                     </a>
                 </li>
 
+                <!-- Mods -->
+                <li class="nav-main-item">
+                    <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
+                       aria-expanded="false" href="#">
+                        <i class="nav-main-link-icon fas fa-users-cog"></i>
+                        <span class="nav-main-link-name">إدارة مشرفين</span>
+                    </a>
+                    <ul class="nav-main-submenu">
+                        <li class="nav-main-item">
+                            <a class="nav-main-link" href="{{ route('mods.index') }}">
+                                <span class="nav-main-link-name">قائمة المشرفين</span>
+                            </a>
+                        </li>
 
+                        <li class="nav-main-item">
+                            <a class="nav-main-link" href="{{ route('mods.create') }}">
+                                <span class="nav-main-link-name">إضافة مشرف جديد</span>
+                            </a>
+                        </li>
 
+                    </ul>
+                </li>
 
                 <!-- System -->
                 <li class="nav-main-item">
@@ -123,7 +147,8 @@
 
                         <!-- Reports -->
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ Route::currentRouteName() === 'reports.index' ? 'active' : ''}}" href="{{route('reports.index')}}">
+                            <a class="nav-main-link {{ Route::currentRouteName() === 'reports.index' ? 'active' : ''}}"
+                               href="{{route('reports.index')}}">
                                 <i class="nav-main-link-icon far fa-copy"></i>
                                 <span class="nav-main-link-name">{{ __('sidebar.reports') }}</span>
                             </a>
@@ -174,8 +199,8 @@
 
             </ul>
 
-
-            <div class="nav-main-item go_to_site">
+            @endsuperAdmin
+            <div class="nav-main-item go_to_site" @Mod style="margin-top:6rem" @endMod>
                 <a href="{{url('/')}}" target="_blank">
                     <i class="nav-main-link-icon fas fa-globe"></i>
                     <span class="nav-main-link-name" style="color: #0A63A5">{{ __('sidebar.go_to_site') }}</span>
@@ -183,7 +208,8 @@
             </div>
 
             <div class="nav-main-item btn-hover log_out">
-                <a onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="#route('logout')">
+                <a onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                   href="#route('logout')">
                     <i class="nav-main-link-icon fas fa-sign-out-alt "></i>
                     <span class="nav-main-link-name noselect">{{ __('sidebar.log_out') }}</span>
                 </a>

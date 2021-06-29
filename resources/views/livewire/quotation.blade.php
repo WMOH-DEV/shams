@@ -37,6 +37,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-12 col-md-2">
+                    @superAdmin
                 @if (count($checked) > 0)
                     <!-- Delete all -->
                         <button type="button"
@@ -47,6 +48,7 @@
                             ) @endif
                         </button>
                     @endif
+                    @endsuperAdmin
                 </div>
 
                 <div class="col-sm-12 col-md-10 row justify-between justify-content-end align-items-center pl-0">
@@ -77,7 +79,7 @@
                 </div>
 
             </div>
-
+            @superAdmin
             @if ($selectPage)
                 @if ($selectAll)
                     <p class="font-size-sm m-1">تم تحديد جميع الادخالات وعددها <span
@@ -101,98 +103,111 @@
                     @endif
                 @endif
             @endif
-                <div class="table-responsive">
-                    <table class="table table-bordered
+            @endsuperAdmin
+            <div class="table-responsive">
+                <table class="table table-bordered
                  table-striped table table-hover table-vcenter">
-                        <thead style="font-size: 0.7rem">
-                        <tr>
-                            <th class="text-center" style="width: 5%">
+                    <thead style="font-size: 0.7rem">
+                    <tr>
+                        @superAdmin
+                        <th class="text-center" style="width: 5%">
+                            <div class="custom-control custom-checkbox custom-control-primary d-inline-block">
+                                <input type="checkbox"
+                                       class="custom-control-input"
+                                       id="check-all"
+                                       wire:model="selectPage"
+                                       name="check-all">
+                                <label class="custom-control-label" for="check-all"></label>
+                            </div>
+
+                        </th>
+                        @endsuperAdmin
+                        <th class="text-center">رقم الـ ID</th>
+                        <th class="text-center">إسم التاجر</th>
+                        <th class="text-center">المدينة</th>
+                        <th class="text-center">عرض السعر</th>
+                        <th class="text-center">نوع المنتج</th>
+                        <th class="text-center">السعر الإجمالي</th>
+                        <th class="text-center">تاريخ التقديم</th>
+                        <th class="text-center" style="width: 100px;">الاجراءات</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @forelse ($quotations as $quotation)
+                        <tr style="font-size: 0.8rem">
+                            @superAdmin
+                            <td class="text-center">
                                 <div class="custom-control custom-checkbox custom-control-primary d-inline-block">
                                     <input type="checkbox"
                                            class="custom-control-input"
-                                           id="check-all"
-                                           wire:model="selectPage"
-                                           name="check-all">
-                                    <label class="custom-control-label" for="check-all"></label>
+                                           value="{{$quotation->id}}"
+                                           id="{{$quotation->id}}"
+                                           name="{{$quotation->id}}"
+                                           wire:model="checked">
+                                    <label class="custom-control-label" for="{{$quotation->id}}"></label>
                                 </div>
-
-                            </th>
-
-                            <th class="text-center">رقم الـ ID</th>
-                            <th class="text-center">إسم التاجر</th>
-                            <th class="text-center">المدينة</th>
-                            <th class="text-center">عرض السعر</th>
-                            <th class="text-center">نوع المنتج</th>
-                            <th class="text-center">السعر الإجمالي</th>
-                            <th class="text-center">تاريخ التقديم</th>
-                            <th class="text-center" style="width: 100px;">الاجراءات</th>
+                            </td>
+                            @endsuperAdmin
+                            <td class="text-center">{{ $quotation->id }}</td>
+                            <td class="text-center">{{ $quotation->merchant->name }}</td>
+                            <td class="text-center">{{ $quotation->city->name }}</td>
+                            <td class="text-center">
+                                @if ($quotation->price == "جزئى")
+                                    <span class="badge badge-pill badge-primary p-1">جزئى</span>
+                                @elseif ($quotation->price == "كلى")
+                                    <span class="badge badge-pill badge-secondary p-1">كلى</span>
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                @if ($quotation->kind_product == "وكالة")
+                                    <span class="badge badge-pill badge-primary p-1">وكالة </span>
+                                @elseif ($quotation->kind_product == "بديل من شركات اخرى")
+                                    <span class="badge badge-pill badge-secondary p-1">بديل</span>
+                                @elseif ($quotation->kind_product == "كليهما")
+                                    <span class="badge badge-pill badge-danger p-1">كليهما</span>
+                                @endif
+                            </td>
+                            <td class="text-center">{{ $quotation->total_price }}</td>
+                            <td class="text-center">{{ $quotation->created_at->format('Y-m-d') }}</td>
+                            <!-- Actions -->
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <a href="{{route('quotations.show.one', $quotation->id)}}" type="button"
+                                       class="btn btn-sm btn-primary js-tooltip-enabled btn-right"
+                                       data-toggle="tooltip" title="" data-original-title="show">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-primary js-tooltip-enabled btn-left"
+                                            title="حذف"
+                                            @Mod
+                                            disabled
+                                            @endMod
+                                            @superAdmin
+                                            data-original-title="delete" data-toggle="modal"
+                                            data-target="#modal-delete{{$quotation->id}}"
+                                            @endsuperAdmin
+                                    >
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                    @superAdmin
+                                    @include('admin.quotations.inc.del-modal')
+                                    @endsuperAdmin
+                                </div>
+                            </td>
                         </tr>
-                        </thead>
-                        <tbody>
+                    @empty
+                        <td class="text-center" colspan="10">لا يوجد نتائج في الجدول</td>
+                    @endforelse
 
-                        @forelse ($quotations as $quotation)
-                            <tr style="font-size: 0.8rem">
-                                <td class="text-center">
-                                    <div class="custom-control custom-checkbox custom-control-primary d-inline-block">
-                                        <input type="checkbox"
-                                               class="custom-control-input"
-                                               value="{{$quotation->id}}"
-                                               id="{{$quotation->id}}"
-                                               name="{{$quotation->id}}"
-                                               wire:model="checked">
-                                        <label class="custom-control-label" for="{{$quotation->id}}"></label>
-                                    </div>
-                                </td>
-                                <td class="text-center">{{ $quotation->id }}</td>
-                                <td class="text-center">{{ $quotation->merchant->name }}</td>
-                                <td class="text-center">{{ $quotation->city->name }}</td>
-                                <td class="text-center">
-                                    @if ($quotation->price == "جزئى")
-                                        <span class="badge badge-pill badge-primary p-1">جزئى</span>
-                                    @elseif ($quotation->price == "كلى")
-                                        <span class="badge badge-pill badge-secondary p-1">كلى</span>
-                                    @endif
-                                </td>
-                                <td class="text-center">
-                                    @if ($quotation->kind_product == "وكالة")
-                                        <span class="badge badge-pill badge-primary p-1">وكالة </span>
-                                    @elseif ($quotation->kind_product == "بديل من شركات اخرى")
-                                        <span class="badge badge-pill badge-secondary p-1">بديل</span>
-                                    @elseif ($quotation->kind_product == "كليهما")
-                                        <span class="badge badge-pill badge-danger p-1">كليهما</span>
-                                    @endif
-                                </td>
-                                <td class="text-center">{{ $quotation->total_price }}</td>
-                                <td class="text-center">{{ $quotation->created_at->format('Y-m-d') }}</td>
-                                <!-- Actions -->
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        <a href="{{route('quotations.show.one', $quotation->id)}}" type="button"
-                                           class="btn btn-sm btn-primary js-tooltip-enabled btn-right"
-                                           data-toggle="tooltip" title="" data-original-title="show">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <button type="button" class="btn btn-sm btn-primary js-tooltip-enabled btn-left"
-                                                title="حذف" data-original-title="delete" data-toggle="modal"
-                                                data-target="#modal-delete{{$quotation->id}}">
-                                            <i class="fa fa-times"></i>
-                                        </button>
-                                        @include('admin.quotations.inc.del-modal')
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <td class="text-center" colspan="10">لا يوجد نتائج في الجدول</td>
-                        @endforelse
-
-                        </tbody>
-                    </table>
-                </div>
-                {{ $quotations->links() }}
-
+                    </tbody>
+                </table>
             </div>
+            {{ $quotations->links() }}
 
         </div>
 
-
     </div>
+
+
+</div>

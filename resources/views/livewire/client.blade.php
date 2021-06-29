@@ -1,18 +1,20 @@
 <div class="content">
-    <x-message />
+    <x-message/>
     <div class="block block-rounded">
         <div class="block-header block-header-default">
             <h5 class="h6 mb-1">
                 <a href="{{route('admincp.index')}}">{{ __('global.main') }}</a><i
                     class="fas fa-angle-left px-2"></i><span>قائمة الأعضاء</span>
-            </h5>            <div class="block-options">
+            </h5>
+            <div class="block-options">
                 <button type="button" class="btn btn-sm btn-alt-primary" data-toggle="block-option"
                         data-action="fullscreen_toggle"><i class="si si-size-fullscreen"></i></button>
                 <button type="button" class="btn btn-sm btn-alt-primary" data-toggle="block-option"
                         data-action="pinned_toggle">
                     <i class="si si-pin"></i>
                 </button>
-                <button type="button" class="btn btn-sm btn-alt-primary" data-toggle="block-option" data-action="state_toggle"
+                <button type="button" class="btn btn-sm btn-alt-primary" data-toggle="block-option"
+                        data-action="state_toggle"
                         data-action-mode="demo">
                     <i class="si si-refresh"></i>
                 </button>
@@ -30,20 +32,24 @@
             </div>
             <div class="row">
                 <div class="col-sm-12 col-md-5">
-                    <a href="{{route('clients.create')}}" type="button" wire:offline.attr="disabled" class="btn btn-outline-success mr-1 mb-3 btn-sm"
-                          >
+                    @superAdmin
+                    <a href="{{route('clients.create')}}" type="button" wire:offline.attr="disabled"
+                       class="btn btn-outline-success mr-1 mb-3 btn-sm"
+                    >
                         <i class="fa fa-fw fa-plus mr-1"></i>
                         {{ __('global.add') }}
                     </a>
                 @if (count($checked) > 0)
                     <!-- Delete all -->
-                    <button type="button"
-                            wire:click.prevent="deleteSelected"
-                            onclick="confirm('هل أنت متأكد من هذا الإجراء ؟') || event.stopImmediatePropagation()"
-                            class="btn btn-outline-danger mr-1 mb-3 btn-sm">
-                        <i class="fa fa-fw fa-times mr-1"></i>  حذف @if (count($checked) > 0) ({{count($checked)}}) @endif
-                    </button>
+                        <button type="button"
+                                wire:click.prevent="deleteSelected"
+                                onclick="confirm('هل أنت متأكد من هذا الإجراء ؟') || event.stopImmediatePropagation()"
+                                class="btn btn-outline-danger mr-1 mb-3 btn-sm">
+                            <i class="fa fa-fw fa-times mr-1"></i> حذف @if (count($checked) > 0) ({{count($checked)}}
+                            ) @endif
+                        </button>
                     @endif
+                    @endsuperAdmin
                 </div>
 
                 <div class="col-sm-12 col-md-7 d-flex justify-between">
@@ -60,16 +66,16 @@
                     <div class="dataTables_length col-5 row align-items-center justify-between">
                         <div class="col-4"> العرض:</div>
                         <div class="col-8">
-                        <label style="width: 100%">
-                            <select name="DataTables_Table_2_length"
-                                    aria-controls="DataTables_Table_2"
-                                    class="form-control rtl-select-arrow"
-                                    wire:model="pagination">
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="50">50</option>
-                            </select>
-                        </label>
+                            <label style="width: 100%">
+                                <select name="DataTables_Table_2_length"
+                                        aria-controls="DataTables_Table_2"
+                                        class="form-control rtl-select-arrow"
+                                        wire:model="pagination">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </label>
                         </div>
                     </div>
 
@@ -77,109 +83,127 @@
 
             </div>
 
+            @superAdmin
             @if ($selectPage)
                 @if ($selectAll)
-                    <p class="font-size-sm m-1">لقد قمت بتحديد جميع الادخالات وعددها <span class="font-w700">{{$clients->total()}}</span>
-                       ، <button wire:click="cancelSelectAll" wire:offline.attr="disabled" class="text-primary">إلغاء التحديد؟</button> </p>
-                @else
-                <p class="font-size-sm m-1">لقد قمت بتحديد <span class="font-w700">{{count($checked)}}</span>
-                    @if (count($checked) < $clients->total())
-                        هل تريد تحديد كل الادخالات <span class="font-w700">{{$clients->total()}}</span> ؟
-                        <button wire:click="selectAll" wire:offline.attr="disabled"
-                                class="badge badge-pill py-1 badge-success pointer">
-                            تحديد الكل
-                            <i class="fa fa-fw fa-check"></i></button>
-                    @else
+                    <p class="font-size-sm m-1">لقد قمت بتحديد جميع الادخالات وعددها <span
+                            class="font-w700">{{$clients->total()}}</span>
+                        ،
                         <button wire:click="cancelSelectAll" wire:offline.attr="disabled" class="text-primary">إلغاء
                             التحديد؟
                         </button>
-                @endif                @endif
-            @endif
-            <div class="table-responsive">
-                <table class="table table-bordered
+                    </p>
+                @else
+                    <p class="font-size-sm m-1">لقد قمت بتحديد <span class="font-w700">{{count($checked)}}</span>
+                        @if (count($checked) < $clients->total())
+                            هل تريد تحديد كل الادخالات <span class="font-w700">{{$clients->total()}}</span> ؟
+                            <button wire:click="selectAll" wire:offline.attr="disabled"
+                                    class="badge badge-pill py-1 badge-success pointer">
+                                تحديد الكل
+                                <i class="fa fa-fw fa-check"></i></button>
+                        @else
+                            <button wire:click="cancelSelectAll" wire:offline.attr="disabled" class="text-primary">إلغاء
+                                التحديد؟
+                            </button>
+                        @endif
+                        @endif
+                        @endif
+                        @endsuperAdmin
+                    <div class="table-responsive">
+                        <table class="table table-bordered
                  table-striped table table-hover table-vcenter">
-                    <thead style="font-size: 0.7rem">
-                    <tr>
-                        <th class="text-center" style="width: 5%">
-                            <div class="custom-control custom-checkbox custom-control-primary d-inline-block">
-                                <input type="checkbox"
-                                       class="custom-control-input"
-                                       id="check-all"
-                                       wire:model="selectPage"
-                                       name="check-all">
-                                <label class="custom-control-label" for="check-all"></label>
-                            </div>
+                            <thead style="font-size: 0.7rem">
+                            <tr>
+                                @superAdmin
+                                <th class="text-center" style="width: 5%">
+                                    <div class="custom-control custom-checkbox custom-control-primary d-inline-block">
+                                        <input type="checkbox"
+                                               class="custom-control-input"
+                                               id="check-all"
+                                               wire:model="selectPage"
+                                               name="check-all">
+                                        <label class="custom-control-label" for="check-all"></label>
+                                    </div>
 
-                        </th>
+                                </th>
+                                @endsuperAdmin
+                                <th class="text-center">رقم ID</th>
+                                <th class="text-center">الإسم</th>
+                                <th class="text-center">رقم الجوال</th>
+                                <th class="text-center">المدينة</th>
+                                <th class="text-center">البريد الإلكتروني</th>
+                                <th class="text-center">تاريخ الإضافة</th>
+                                <th class="text-center" style="width: 100px;">الاجراءات</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-                        <th class="text-center">رقم ID</th>
-                        <th class="text-center">الإسم</th>
-                        <th class="text-center">رقم الجوال</th>
-                        <th class="text-center">المدينة</th>
-                        <th class="text-center">البريد الإلكتروني</th>
-                        <th class="text-center">تاريخ الإضافة</th>
-                        <th class="text-center" style="width: 100px;">الاجراءات</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                            @forelse($clients as $client)
+                                <tr style="font-size: 0.8rem">
+                                    @superAdmin
+                                    <td class="text-center">
+                                        <div
+                                            class="custom-control custom-checkbox custom-control-primary d-inline-block">
+                                            <input type="checkbox"
+                                                   class="custom-control-input"
+                                                   value="{{$client->id}}"
+                                                   id="{{$client->id}}"
+                                                   name="{{$client->id}}"
+                                                   wire:model="checked">
+                                            <label class="custom-control-label" for="{{$client->id}}"></label>
+                                        </div>
+                                    </td>
+                                    @endsuperAdmin
+                                    <td class="text-center">{{ $client->id }}</td>
+                                    <td class="text-center">{{ $client->name }}</td>
+                                    <td class="text-center">{{ $client->phone }}</td>
+                                    <td class="text-center">{{ $client->city->name }}</td>
+                                    <td class="text-center">{{ $client->email }}</td>
+                                    <td class="text-center">{{ $client->created_at ? $client->created_at->format('Y-m-d') : 'القيمة غير موجودة' }}</td>
+                                    <!-- Actions -->
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <a href="{{route('clients.edit', $client->id)}}" type="button"
+                                               class="btn btn-sm btn-primary js-tooltip-enabled btn-right"
+                                               data-toggle="tooltip" title="" data-original-title="Edit">
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </a>
+                                            <a href="{{route('clients.show', $client->id)}}" type="button"
+                                               class="btn btn-sm btn-primary js-tooltip-enabled btn-mid"
+                                               data-toggle="tooltip" title="" data-original-title="show">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <button type="button"
+                                                    class="btn btn-sm btn-primary js-tooltip-enabled btn-left"
+                                                    title="حذف"
+                                                    @Mod
+                                                    disabled
+                                                    @endMod
+                                                    @superAdmin
+                                                    data-original-title="delete" data-toggle="modal"
+                                                    data-target="#modal-client-delete{{$client->id}}"
+                                                    @endsuperAdmin
+                                            >
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                            @superAdmin
+                                            @include('admin.clients.inc.del-modal')
+                                            @endsuperAdmin
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="8" class="text-center">لا يوجد نتائج متاحة</td>
+                                </tr>
+                            @endforelse
 
-                    @forelse($clients as $client)
-                        <tr style="font-size: 0.8rem">
-                            <td class="text-center">
-                                <div class="custom-control custom-checkbox custom-control-primary d-inline-block">
-                                    <input type="checkbox"
-                                           class="custom-control-input"
-                                           value="{{$client->id}}"
-                                           id="{{$client->id}}"
-                                           name="{{$client->id}}"
-                                           wire:model="checked">
-                                    <label class="custom-control-label" for="{{$client->id}}"></label>
-                                </div>
-                            </td>
-                            <td class="text-center">{{ $client->id }}</td>
-                            <td class="text-center">{{ $client->name }}</td>
-                            <td class="text-center">{{ $client->phone }}</td>
-                            <td class="text-center">{{ $client->city->name }}</td>
-                            <td class="text-center">{{ $client->email }}</td>
-                            <td class="text-center">{{ $client->created_at ? $client->created_at->format('Y-m-d') : 'القيمة غير موجودة' }}</td>
-                            <!-- Actions -->
-                            <td class="text-center">
-                                <div class="btn-group">
-                                    <a href="{{route('clients.edit', $client->id)}}" type="button" class="btn btn-sm btn-primary js-tooltip-enabled btn-right"
-                                            data-toggle="tooltip" title="" data-original-title="Edit">
-                                        <i class="fa fa-pencil-alt"></i>
-                                    </a>
-                                    <a href="{{route('clients.show', $client->id)}}" type="button" class="btn btn-sm btn-primary js-tooltip-enabled btn-mid"
-                                            data-toggle="tooltip" title="" data-original-title="show">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-sm btn-primary js-tooltip-enabled btn-left"
-                                            title="حذف" data-original-title="delete" data-toggle="modal"
-                                            data-target="#modal-client-delete{{$client->id}}">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                    @include('admin.clients.inc.del-modal')
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="8" class="text-center">لا يوجد نتائج متاحة</td>
-                        </tr>
-                    @endforelse
-
-                    </tbody>
-                </table>
-            </div>
-            {{ $clients->links() }}
+                            </tbody>
+                        </table>
+                    </div>
+                    {{ $clients->links() }}
 
         </div>
-
-
-
-
-        <!-- Test -->
-
 
 
     </div>

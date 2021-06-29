@@ -4,7 +4,7 @@
 
 @section('css')
 
-  <link rel="stylesheet" href="{{asset('assets')}}/js/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="{{asset('admin/assets')}}/js/plugins/select2/css/select2.min.css">
 
 @endsection
 
@@ -82,11 +82,7 @@
                   </label>
                 </th>
                 <td class="font-w600">
-                  @if(!empty($user->getRoleNames()))
-                    @foreach($user->getRoleNames() as $v)
-                      <label class="badge badge-success">{{ $v }}</label>
-                    @endforeach
-                  @endif
+                      <label class="badge badge-success">{{ $user->role->name}}</label>
                 </td>
               </tr>
               </tbody>

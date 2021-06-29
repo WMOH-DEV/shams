@@ -1,4 +1,3 @@
-
 <div class="content">
     <x-message/>
     <div class="block block-rounded">
@@ -31,10 +30,9 @@
                 <span class="badge badge-pill badge-danger"><i class="fa fa-fw fa-times-circle"></i> تأكد من اتصالك بالانترنت</span>
 
             </div>
-
-
-                        <div class="row">
+            <div class="row">
                 <div class="col-sm-12 col-md-5">
+                    @superAdmin
                     <a href="{{route('merchants.create')}}" type="button" wire:offline.attr="disabled"
                        class="btn btn-outline-success mr-1 mb-3 btn-sm"
                     >
@@ -52,11 +50,13 @@
                                     wire:click.prevent="approveSelected"
                                     onclick="confirm('هل أنت متأكد من هذا الإجراء ؟') || event.stopImmediatePropagation()"
                                     class="btn btn-outline-primary mr-2 mb-3 btn-sm">
-                                <i class="fa fa-fw fa-check mr-1"></i> تبديل الحالة @if (count($checked) > 0) ({{count($checked)}}) @endif
+                                <i class="fa fa-fw fa-check mr-1"></i> تبديل الحالة @if (count($checked) > 0)
+                                    ({{count($checked)}}) @endif
                             </button>
                             @endif
                         </button>
                     @endif
+                    @endsuperAdmin
                 </div>
 
                 <div class="col-sm-12 col-md-7 row justify-between">
@@ -104,6 +104,7 @@
 
             </div>
 
+            @superAdmin
             @if ($selectPage)
                 @if ($selectAll)
                     <p class="font-size-sm m-1">لقد قمت بتحديد جميع الادخالات وعددها <span
@@ -129,11 +130,13 @@
                     </p>
                 @endif
             @endif
+            @endsuperAdmin
             <div class="table-responsive">
                 <table class="table table-bordered
                  table-striped table table-hover table-vcenter">
                     <thead style="font-size: 0.7rem">
                     <tr>
+                        @superAdmin
                         <th class="text-center" style="width: 5%">
                             <div class="custom-control custom-checkbox custom-control-primary d-inline-block">
                                 <input type="checkbox"
@@ -143,9 +146,8 @@
                                        name="check-all">
                                 <label class="custom-control-label" for="check-all"></label>
                             </div>
-
                         </th>
-
+                        @endsuperAdmin
                         <th class="text-center">الصورة</th>
                         <th class="text-center">الإسم</th>
                         <th class="text-center">رقم الجوال</th>
@@ -159,6 +161,7 @@
 
                     @forelse($merchants as $merchant)
                         <tr style="font-size: 0.8rem">
+                            @superAdmin
                             <td class="text-center">
                                 <div class="custom-control custom-checkbox custom-control-primary d-inline-block">
                                     <input type="checkbox"
@@ -170,8 +173,10 @@
                                     <label class="custom-control-label" for="{{$merchant->id}}"></label>
                                 </div>
                             </td>
+                            @endsuperAdmin
                             <td class="text-center">
-                                <img src="{{$merchant->image_path}}" alt="{{$merchant->name}}" style="height: 50px; margin: auto">
+                                <img src="{{$merchant->image_path}}" alt="{{$merchant->name}}"
+                                     style="height: 50px; margin: auto">
                             </td>
                             <td class="text-center">{{ $merchant->name }}</td>
                             <td class="text-center">{{ $merchant->phone }}</td>
@@ -181,7 +186,8 @@
                                 @if ($merchant->certified == 1)
                                     <span class="badge badge-pill badge-primary">معتمد <i class="fa fa-fw fa-check"></i> </span>
                                 @else
-                                    <span class="badge badge-pill badge-danger">غير معتمد <i class="fa fa-fw fa-times-circle"></i> </span>
+                                    <span class="badge badge-pill badge-danger">غير معتمد <i
+                                            class="fa fa-fw fa-times-circle"></i> </span>
                                 @endif
                             </td>
                             <!-- Actions -->
@@ -189,7 +195,8 @@
                                 <div class="btn-group">
                                     <button wire:click="approveSingleRecord({{$merchant->id}})" type="button"
                                             class="btn btn-sm btn-primary js-tooltip-enabled btn-right"
-                                            data-toggle="tooltip" title="اعتماد أو إلغاء الاعتماد" data-original-title="Edit">
+                                            data-toggle="tooltip" title="اعتماد أو إلغاء الاعتماد"
+                                            data-original-title="Edit">
                                         @if ($merchant->certified == 0)
                                             <i class="fa fa-check-circle"></i>
                                         @else
@@ -207,11 +214,20 @@
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     <button type="button" class="btn btn-sm btn-primary js-tooltip-enabled btn-left"
-                                            title="حذف" data-original-title="delete" data-toggle="modal"
-                                            data-target="#modal-delete{{$merchant->id}}">
+                                            title="حذف"
+                                            @Mod
+                                            disabled
+                                            @endMod
+                                            @superAdmin
+                                            data-original-title="delete" data-toggle="modal"
+                                            data-target="#modal-delete{{$merchant->id}}"
+                                            @endsuperAdmin
+                                    >
                                         <i class="fa fa-times"></i>
                                     </button>
+                                    @superAdmin
                                     @include('admin.merchants.inc.del-modal')
+                                    @endsuperAdmin
                                 </div>
                             </td>
                         </tr>

@@ -54,12 +54,13 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth'          => \App\Http\Middleware\Authenticate::class,
-      //  'islogin'       => \App\Http\Middleware\islogin::class,
+        'islogin'       => \App\Http\Middleware\islogin::class,
         'isAdmin'       => \App\Http\Middleware\IsAdmin::class,
+        'isMod'         => \App\Http\Middleware\userIsMod::class,
         'auth.basic'    => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can'           => \Illuminate\Auth\Middleware\Authorize::class,
-       // 'cors'          => \App\Http\Middleware\Cors::class,
+        'cors'          => \App\Http\Middleware\Cors::class,
         'guest'         => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed'        => \Illuminate\Routing\Middleware\ValidateSignature::class,

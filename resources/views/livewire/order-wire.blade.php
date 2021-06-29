@@ -33,6 +33,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-12 col-md-2">
+                    @superAdmin
                 @if (count($checked) > 0)
                     <!-- Delete all -->
                         <button type="button"
@@ -43,6 +44,7 @@
                             ) @endif
                         </button>
                     @endif
+                    @endsuperAdmin
                 </div>
 
                 <div class="col-sm-12 col-md-10 row justify-between justify-content-end align-items-center pl-0">
@@ -91,6 +93,7 @@
 
             </div>
 
+            @superAdmin
             @if ($selectPage)
                 @if ($selectAll)
                     <p class="font-size-sm m-1">تم تحديد جميع الادخالات وعددها <span
@@ -114,11 +117,14 @@
                     @endif
                 @endif
             @endif
+            @endsuperAdmin
+
             <div class="table-responsive">
                 <table class="table table-bordered
                  table-striped table table-hover table-vcenter">
                     <thead style="font-size: 0.7rem">
                     <tr>
+                        @superAdmin
                         <th class="text-center" style="width: 5%">
                             <div class="custom-control custom-checkbox custom-control-primary d-inline-block">
                                 <input type="checkbox"
@@ -128,9 +134,8 @@
                                        name="check-all">
                                 <label class="custom-control-label" for="check-all"></label>
                             </div>
-
                         </th>
-
+                        @endsuperAdmin
                         <th class="text-center">رقم الـ ID</th>
                         <th class="text-center">عنوان الطلب</th>
                         <th class="text-center">صاحب الطلب</th>
@@ -144,6 +149,7 @@
 
                     @forelse ($orders as $order)
                         <tr style="font-size: 0.8rem">
+                            @superAdmin
                             <td class="text-center">
                                 <div class="custom-control custom-checkbox custom-control-primary d-inline-block">
                                     <input type="checkbox"
@@ -155,6 +161,7 @@
                                     <label class="custom-control-label" for="{{$order->id}}"></label>
                                 </div>
                             </td>
+                            @endsuperAdmin
                             <td class="text-center">{{ $order->id }}</td>
                             <td class="text-center">{{ $order->name }}</td>
                             <td class="text-center">{{ $order->user->name }}</td>
@@ -198,11 +205,20 @@
 
 
                                     <button type="button" class="btn btn-sm btn-primary js-tooltip-enabled btn-left"
-                                            title="حذف" data-original-title="delete" data-toggle="modal"
-                                            data-target="#modal-delete{{$order->id}}">
+                                            title="حذف"
+                                            @Mod
+                                            disabled
+                                            @endMod
+                                            @superAdmin
+                                            data-original-title="delete" data-toggle="modal"
+                                            data-target="#modal-delete{{$order->id}}"
+                                            @endsuperAdmin
+                                    >
                                         <i class="fa fa-times"></i>
                                     </button>
+                                    @superAdmin
                                     @include('admin.orders.inc.del-modal')
+                                    @endsuperAdmin
                                 </div>
                             </td>
                         </tr>

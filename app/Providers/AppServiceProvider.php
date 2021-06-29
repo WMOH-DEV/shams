@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-            //
+             Blade::if('Mod', function (){
+            $user = Auth::user();
+            return auth()->user() && $user->role_id == 4;
+        });
+
+        Blade::if('superAdmin', function (){
+            $user = Auth::user();
+            return auth()->user() && $user->role_id == 3;
+        });
     }
 }

@@ -1,5 +1,5 @@
 <div class="modal fade show text-right"
-     id="modal-mods-delete{{$user->id}}"
+     id="modal-mods-delete{{$mod->id}}"
      tabindex="-1"
      aria-labelledby="modal-block-slideup"
      aria-modal="true"
@@ -12,7 +12,7 @@
           <h3 class="block-title">
             <i class="fa fa-fw fa-exclamation-triangle opacity-50 mr-1"></i>
             تحذير سيتم حذف
-            {{ $user->name }}
+            {{ $mod->name }}
           </h3>
           <div class="block-options">
             <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
@@ -20,7 +20,7 @@
             </button>
           </div>
         </div>
-        <form action="{{route('mods.destroy', $user->id)}}" method="post" class="m-0">
+        <form action="{{route('mods.destroy', $mod->id)}}" method="post" class="m-0">
         <div class="block-content">
           <p class="text-center" style="font-size: 1.1rem">هل أنت متأكد من حذف هذا المشرف ؟</p>
         </div>
