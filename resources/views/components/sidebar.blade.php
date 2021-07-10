@@ -95,16 +95,6 @@
                 <li class="nav-main-heading">{{ __('sidebar.admin_sections') }}</li>
 
 
-                <!-- Pages -->
-                <li class="nav-main-item">
-                    <a class="nav-main-link {{ Route::currentRouteName() === 'pages.index' ? 'active' : ''}}"
-                       href="{{route('pages.index')}}">
-                        <i class="nav-main-link-icon far fa-flag"></i>
-                        <span class="nav-main-link-name">{{ __('sidebar.pages') }}</span>
-                    </a>
-                </li>
-
-
                 <!-- opinions -->
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="{{route('opinions.index')}}">
@@ -144,6 +134,15 @@
                         <span class="nav-main-link-name">{{ __('sidebar.system_settings') }}</span>
                     </a>
                     <ul class="nav-main-submenu">
+
+                        <!-- Pages -->
+                        <li class="nav-main-item">
+                            <a class="nav-main-link {{ Route::currentRouteName() === 'pages.index' ? 'active' : ''}}"
+                               href="{{route('pages.index')}}">
+                                <i class="nav-main-link-icon far fa-flag"></i>
+                                <span class="nav-main-link-name">{{ __('sidebar.pages') }}</span>
+                            </a>
+                        </li>
 
                         <!-- Reports -->
                         <li class="nav-main-item">

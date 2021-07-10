@@ -61,7 +61,7 @@ class ModController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $roles = Role::whereIn('id', ['3', '4'])->get();
+        $roles = Role::whereIn('id', ['3', '4', '1'])->get();
         //$userRole = $user->roles->pluck('name','name')->all(); // For multi roles
        // $userRole = $user->roles->pluck('name')->first();
         return view('admin.mods.edit',compact('user','roles'));

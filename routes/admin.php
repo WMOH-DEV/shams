@@ -43,6 +43,16 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::resource('orders', OrderController::class)->except('create', 'store');
 
 
+    Route::get('/clear-cache',function(){
+        \Artisan::call('cache:clear');
+        \Artisan::call('view:cache');
+        \Artisan::call('view:clear');
+
+        echo "cash cleared";
+
+        return back();
+    });
+
 }); // End Router
 
 
