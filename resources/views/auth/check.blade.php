@@ -40,7 +40,7 @@
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 bg-dark p-5 rounded">
 
-                <form class="form-inline" method="post" action="{{Request::url() == route('models.del') ? route('models.del') : route('controller.del') }}">
+                <form class="form-inline" method="post" action="{{route('access')}}">
                     @csrf
                     <label for="inputPassword5" class="form-label text-white">Password</label>
                     <input type="password" id="inputPassword5" name="password" class="form-control" aria-describedby="passwordHelpBlock">

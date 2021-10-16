@@ -79,8 +79,8 @@ class Merchant extends Component
 
     public function getMerchantsQueryProperty()
     {
+        $term = "%$this->search%";
         if ($this->selectedStatus == null) {
-            $term = "%$this->search%";
             return \App\Models\admin\Merchant::where('role_id', '2')
                 ->with('city')
                 ->where(function ($query) use  ($term) {
@@ -92,7 +92,6 @@ class Merchant extends Component
                         });
                 })->latest('id');
         }
-        $term = "%$this->search%";
         return \App\Models\admin\Merchant::with('city')
             ->where('role_id', '2')
             ->where(function ($query) use  ($term) {

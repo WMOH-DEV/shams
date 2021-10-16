@@ -54,7 +54,6 @@
                                 style="display: block; height: 345px; width: 690px;" width="828" height="350"></canvas>
                         {{-- <h5 class="text-center">{{ $chart->options['chart_title'] }}</h5>
                         {!! $chart->renderHtml() !!} --}}
-
                     </div>
                 </div>
                 <div class="row">
